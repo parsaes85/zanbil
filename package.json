@@ -1,0 +1,15 @@
+{
+  "name": "zanbil",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tailwind -i ./css/index.css -o ./css/tailwind.css",
+    "watch": "tailwind -i ./css/index.css -o ./css/tailwind.css --watch"
+  },
+  "author": "parsa",
+  "license": "ISC",
+  "dependencies": {
+    "tailwindcss": "^3.2.7"
+  }
+}
