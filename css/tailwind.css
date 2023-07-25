@@ -543,6 +543,10 @@ video {
   left: -0.5rem;
 }
 
+.-left-\[1800px\] {
+  left: -1800px;
+}
+
 .-left-\[900px\] {
   left: -900px;
 }
@@ -553,6 +557,10 @@ video {
 
 .-right-96 {
   right: -24rem;
+}
+
+.-right-\[1800px\] {
+  right: -1800px;
 }
 
 .-right-\[900px\] {

@@ -12,7 +12,7 @@
 </head>
 <body class="font-IRANSans bg-gray-50">
 
-    <div id="shopping-cart-sidebar-parent" class="bg-black bg-opacity-70 hidden top-0 -left-[900px] w-full h-full z-50">
+    <div id="shopping-cart-sidebar-parent" class="bg-black bg-opacity-70 fixed top-0 -left-[1800px] w-full h-full z-50 transition-all duration-200">
         <div id="shopping-cart-sidebar" class="bg-white h-full w-[290px] mr-auto relative">
             <div>
                 <div class="border-b">
@@ -85,7 +85,7 @@
         </div>
     </div>
 
-    <div id="sidebar-parent" class="bg-black bg-opacity-70 hidden top-0 -right-[900px] w-full h-full z-50">
+    <div id="sidebar-parent" class="bg-black bg-opacity-70 fixed top-0 -right-[1800px] w-full h-full z-50 transition-all duration-200">
         <div id="sidebar" class="bg-white h-full w-[270px]">
             <div>
                 <div class="flex items-center">
@@ -223,7 +223,7 @@
             <!-- start mobile header -->
             <div class="mb-10 md:hidden">
                 <div class="flex justify-between items-center px-4 py-2 border-b border-b-gray-200">
-                    <div class="cursor-pointer">
+                    <div id="sidebar-btn" class="cursor-pointer">
                         <img src="./images/icon-hamburger.svg" alt="">
                     </div>
                     <div class="-ml-4">
@@ -284,11 +284,11 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide select-none bg-white rounded-xl relative group">
                         <span class="bg-darkRed text-white px-4 py-1 text-xs absolute right-1 top-3 rounded-full">-4%</span>
-                        <div>
+                        <a href="product.html">
                             <img class="p-2" src="./images/پمپ-باد-فندکی-ارزان-pxw9ua07i7gvj8k0x6s9wfslb44lbqkw1tcoxl3zco.jpg" alt="">
-                        </div>
+                        </a>
                         <div class="p-4">
-                            <h1 class="text-xs sm:text-sm md:text-base">خرید پمپ باد فندکی ارزان</h1>
+                            <a href="product.html" class="text-xs sm:text-sm md:text-base">خرید پمپ باد فندکی ارزان</a>
                             <div class="flex mt-3 mb-2">
                                 <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
                                 <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
@@ -576,5 +576,6 @@
     <script src="./vendor/FontAwesome5/all.min.js"></script>
     <script src="./vendor/SwiperSlider/swiper.js"></script>
     <script src="./js/slider.js"></script>
+    <script src="./js/shared.js" type="module"></script>
 </body>
 </html>
