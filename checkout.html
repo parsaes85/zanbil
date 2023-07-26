@@ -19,7 +19,7 @@
                     <div class="flex justify-between items-center p-4">
                         <h2 class="text-xl font-semibold">سبد خرید</h2>
     
-                        <div class="flex items-center gap-1">
+                        <div id="close-shopping-cart-sidebar-btn" class="flex items-center gap-1">
                             <i class="fa fa-xmark"></i>
                             بستن
                         </div>
@@ -93,11 +93,11 @@
                     <i class="fa-solid fa-magnifying-glass text-xl text-gray-400 pl-5"></i>
                 </div>
                 <div class="flex items-center">
-                    <button class="w-1/2 bg-gray-100 text-gray-500 font-semibold text-sm py-4 transition-all duration-300 sidebar-active-btn">منو</button>
-                    <button class="w-1/2 bg-gray-100 text-gray-500 font-semibold text-sm py-4 transition-all duration-300">دسته‌بندی‌ها</button>
+                    <button id="show-sidebar-menus-btn" class="w-1/2 bg-gray-100 text-gray-500 font-semibold text-sm py-4 transition-all duration-300 sidebar-active-btn">منو</button>
+                    <button id="show-sidebar-categories-btn" class="w-1/2 bg-gray-100 text-gray-500 font-semibold text-sm py-4 transition-all duration-300">دسته‌بندی‌ها</button>
                 </div>
 
-                <div class="flex flex-col text-sm font-semibold text-gray-800">
+                <div id="sidebar-menus-wrapper" class="flex flex-col text-sm font-semibold text-gray-800">
                     <a href="shop.html" class="hover:text-primaryRed transition border-t  px-4 py-3">فروشگاه</a>
                     <a href="#" class="hover:text-primaryRed transition border-t px-4 py-3">پرداخت</a>
                     <a href="cart.html" class="hover:text-primaryRed transition border-t px-4 py-3">سبد خرید</a>
@@ -148,7 +148,7 @@
                 <!-- middle Header -->
                 <div class="flex justify-between items-center border-b border-b-gray-200 px-4 py-2">
                     <div class="flex gap-4">
-                        <a href="javascript:void(0)" class="flex gap-2 text-gray-600 border-l pl-4 transition duration-300 hover:text-gray-400">
+                        <a href="javascript:void(0)" class="shopping-cart-sidebar-btn flex gap-2 text-gray-600 border-l pl-4 transition duration-300 hover:text-gray-400">
                             <div class="relative">
                                 <i class="fa-solid fa-bag-shopping text-lg"></i>
                                 <span class="absolute -top-2 -left-2 bg-primaryRed text-white text-xs rounded-full px-1">0</span>
@@ -237,7 +237,7 @@
                                 <i class="fa-regular fa-user text-xl"></i>
                             </div>
                         </a>
-                        <a href="javascript:void(0)" class=" text-gray-600 transition duration-300 hover:text-gray-400">
+                        <a href="javascript:void(0)" class="shopping-cart-sidebar-btn text-gray-600 transition duration-300 hover:text-gray-400">
                             <div class="relative">
                                 <i class="fa-solid fa-bag-shopping text-xl"></i>
                                 <span class="absolute -top-2 -left-2 bg-primaryRed text-white text-xs rounded-full px-1">0</span>
@@ -489,7 +489,7 @@
                     </div>
                     علاقه‌مندی
                 </a>
-                <a href="javascript:void(0)" class="flex flex-col items-center text-xs">
+                <a href="javascript:void(0)" class="shopping-cart-sidebar-btn flex flex-col items-center text-xs">
                     <div class="relative">
                         <i class="fa-solid fa-bag-shopping text-lg"></i>
                         <span class="absolute -top-2 -left-2 bg-primaryRed text-white text-[10px] rounded-full px-1">0</span>

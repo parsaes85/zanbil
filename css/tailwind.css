@@ -547,10 +547,6 @@ video {
   left: -1800px;
 }
 
-.-left-\[900px\] {
-  left: -900px;
-}
-
 .-right-32 {
   right: -8rem;
 }
@@ -561,10 +557,6 @@ video {
 
 .-right-\[1800px\] {
   right: -1800px;
-}
-
-.-right-\[900px\] {
-  right: -900px;
 }
 
 .-top-1 {
