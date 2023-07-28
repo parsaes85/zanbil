@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="rtl">
+<html lang="en" dir="rtl" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,7 +19,7 @@
                     <div class="flex justify-between items-center p-4">
                         <h2 class="text-xl font-semibold">سبد خرید</h2>
     
-                        <div class="flex items-center gap-1">
+                        <div id="close-shopping-cart-sidebar-btn" class="flex items-center gap-1">
                             <i class="fa fa-xmark"></i>
                             بستن
                         </div>
@@ -252,17 +252,23 @@
 
     <section class="bg-white py-6 px-4 border-b pb-8">
         <div>
-            <h3 class="text-gray-500">خانه / لوازم جانبی خودرو / <span class="text-black">خرید پمپ باد فندکی ارزان</span></h3>
+            <h3 id="product-categroty-path" class="text-gray-500"></h3>
 
-            <div class="flex flex-col justify-between sm:flex-row mt-8">
-                <div class="relative sm:border-l sm:pl-8">
-                    <img src="./images/پمپ-باد-فندکی-ارزان-pxw9ua07i7gvj8k0x6s9wfslb44lbqkw1tcoxl3zco.jpg" class="w-96" alt="">
-                    <span class="bg-darkRed text-white px-4 py-1 text-xs absolute left-0 sm:left-8 top-0 sm:top-3 rounded-full">-1%</span>
+            <div class="flex flex-col justify-between items-start sm:flex-row mt-8">
+                <div class="sm:border-l sm:pl-8 flex flex-col-reverse gap-2 md:flex-row">
+                    <div id="product-other-imgs-wrapper" class="flex md:flex-col gap-1">
+
+                    </div>
+
+                    <div class="relative">
+                        <img id="product-main-img" src="" class="w-full sm:w-96" alt="">
+                        <span id="product-discount-percent" class="bg-darkRed text-white px-4 py-1 text-xs absolute left-0 sm:left-8 top-0 sm:top-3 rounded-full"></span>
+                    </div>
                 </div>
 
-                <div class="w-full sm:pr-8 flex flex-col md:flex-row justify-between gap-6 md:gap-0">
-                    <div>
-                        <h1 class="font-semibold text-lg mb-4">خرید پمپ باد فندکی ارزان</h1>
+                <div class="w-full sm:pr-8 flex flex-col md:flex-row justify-between gap-6 md:gap-0 mt-20 md:mt-0">
+                    <div class="mt-8">
+                        <h1 id="product-title" class="font-semibold text-lg mb-4"></h1>
 
                         <div class="flex gap-2">
                             <div class="text-yellow-400 text-sm flex">
@@ -272,12 +278,17 @@
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
                             </div>
-                            <span class="text-sm text-gray-500">(دیدگاه 1 کاربر)</span>
+                            <a href="#comments" class="text-sm text-gray-500">(دیدگاه <span id="product-comments-count"></span> کاربر)</a>
                         </div>
 
                         <div class="mt-16 mb-2">
+                            <span>کد:</span>
+                            <span id="product-code" class="text-gray-500"></span>
+                        </div>
+
+                        <div class="mb-2">
                             <span>دسته:</span>
-                            <span class="text-gray-500">لوازم جانبی خودرو</span>
+                            <span id="product-category-title" class="text-gray-500"></span>
                         </div>
 
                         <div>
@@ -294,8 +305,8 @@
 
                     <div class="border-4 p-5 h-fit sm:w-72">
                         <div>
-                            <h2 class="font-semibold text-gray-400 line-through">1,369,000 تومان</h2>
-                            <h class="text-xl font-semibold text-darkRed">1,349,000 تومان</h>
+                            <h2 id="product-prev-price" class="font-semibold text-gray-400 line-through"></h2>
+                            <h1 id="product-current-price" class="text-xl font-semibold text-darkRed"></h1>
                         </div>
 
                         <div class="flex gap-3 my-4">
@@ -314,7 +325,7 @@
                         </div>
 
                         <div class="bg-red-100 p-4 mt-4">
-                            <span>14</span>
+                            <span id="product-watching-count"></span>
                             <i class="fa-regular fa-eye text-darkRed text-xs ml-2"></i>
                             <span class="text-gray-500"> نفر در حال مشاهده این محصول هستند!</span>
                         </div>
@@ -360,40 +371,21 @@
     <section class="bg-white py-12 px-4">
         <div>
             <!-- product description -->
-            <div>
+            <div id="product-description" class="text-gray-500">
                 
             </div>
 
             <!-- product comments -->
-            <div class="mt-16 flex flex-col md:flex-row justify-between gap-20 md:gap-0">
-                <div>
-                    <h2 class="font-semibold text-sm"><span>1</span> دیدگاه برای <span>خرید پمپ باد فندکی ارزان</span></h2>
+            <div id="comments" class="mt-16 flex flex-col md:flex-row justify-between gap-20 ">
+                <div class="md:w-1/2">
+                    <h2 id="product-comments-title" class="font-semibold text-sm"></h2>
 
-                    <div class="pt-10">
-                        <div>
-                            <div class="flex justify-between">
-                                <div>
-                                    <span class="font-semibold">zanbil</span>
-                                    <span class="text-gray-500"> - آبان 27/1401</span>
-                                </div>
+                    <div id="product-comments-wrapper" class="md:pt-6">
 
-                                <div class="text-yellow-500 flex text-sm">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </div>                              
-                            </div>
-
-                            <p class="text-gray-500 mt-4">
-                                محل درج نظرات شما عزیزان خریدار در مورد کیفیت پمپ باد فندکی
-                            </p>
-                        </div>
                     </div>
                 </div>
 
-                <div>
+                <div class="md:w-1/2">
                     <h2 class="font-semibold text-sm">دیدگاه خود را بنویسید</h2>
 
                     <div class="pt-6">
@@ -442,39 +434,8 @@
             </div>
 
             <div class="swiper swiper-container w-full h-full my-6">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide select-none bg-white rounded-xl relative group">
-                        <div>
-                            <a href="#">
-                                <img class="p-2" src="./images/جوراب-افزایش-قد-10-سانت-1-pvqeh27tk3xjn494xxqza20rdpygk5cho6731005a0.jpg" alt="">
-                            </a>
-                        </div>
-                        <div class="p-4">
-                            <a href="#" class="text-xs sm:text-sm md:text-base">
-                                خرید جوراب سیلیکونی
-                            </a>
-                            <div class="flex mt-3 mb-2">
-                                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                            </div>
-                            <p class="text-darkRed font-medium sm:font-semibold text-xs md:text-sm">120,000 هزارتومان</p>
-                        </div>
-                        <div class="absolute -left-0 top-4 bg-white flex flex-col gap-4 shadow px-3 py-2 transition-all duration-200 invisible opacity-0 group-hover:opacity-100 group-hover:visible group-hover:left-2">
-                            <div class="relative product-side-icon">
-                                <i class="fa-regular fa-heart text-xl cursor-pointer text-gray-800 hover:text-gray-500"></i>
+                <div id="product-recommendations-wrapper" class="swiper-wrapper">
 
-                                <p class="absolute -top-2 -right-32 bg-black text-white text-xs p-2 rounded-sm invisible opacity-0 transition-all">افزودن به علاقه مندی</p>
-                            </div>
-                            <div class="relative product-side-icon">
-                                <i class="fa-solid fa-cart-shopping text-lg cursor-pointer text-gray-800 hover:text-gray-500"></i>
-
-                                <p class="absolute -top-2 -right-32 bg-black text-white text-xs p-2 rounded-sm invisible opacity-0 transition-all">افزودن به سبد خرید</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -593,5 +554,6 @@
     <script src="./vendor/SwiperSlider/swiper.js"></script>
     <script src="./js/slider.js"></script>
     <script src="./js/shared.js" type="module"></script>
+    <script src="./js/product.js" type="module"></script>
 </body>
 </html>

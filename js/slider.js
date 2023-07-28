@@ -12,8 +12,6 @@ const bannerSwiper = new Swiper(".header-banner", {
     },
 });
 const swiper = new Swiper('.swiper-container', {
-    loop: true,
-
     slidesPerView: 2,
     spaceBetween: 20,
     breakpoints: {
