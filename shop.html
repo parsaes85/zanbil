@@ -172,12 +172,12 @@
                     </div>
 
                     <div class="w-1/2">
-                        <div class="relative w-full">
-                            <input type="text" class="w-full border-2 rounded-md py-2 px-4 focus:outline-none" placeholder="جستجوی محصولات">
-                            <div class="absolute left-0 top-0 bg-primaryRed cursor-pointer text-white h-full py-2.5 px-4 rounded-l-md transition hover:bg-darkRed">
+                        <form id="search-form" class="relative w-full">
+                            <input id="search-input" type="text" class="w-full border-2 rounded-md py-2 px-4 focus:outline-none" placeholder="جستجوی محصولات">
+                            <button class="absolute left-0 top-0 bg-primaryRed cursor-pointer text-white h-full py-2.5 px-4 rounded-l-md transition hover:bg-darkRed">
                                 <i class="fa-solid fa-magnifying-glass"></i>
-                            </div>
-                        </div>
+                            </button>
+                        </form>
                     </div>
 
                     <div>
@@ -197,21 +197,13 @@
                                 <i class="fa-solid fa-chevron-down mr-auto text-sm"></i>
                             </div>
 
-                            <ul class="absolute z-50 bg-white -top-4 border invisible opacity-0 w-full group-hover:opacity-100 group-hover:visible group-hover:top-9 transition-all duration-300">
-                                <li class="border-b p-2 font-medium text-gray-900 hover:bg-gray-100">
-                                    <a href="#" class="block w-full">آرایشی و گریم</a>
-                                </li>
-                                <li class="border-b p-2 font-medium text-gray-900 hover:bg-gray-100">
-                                    <a href="#" class="block w-full">مو</a>
-                                </li>
-                                <li class="border-b p-2 font-medium text-gray-900 hover:bg-gray-100">
-                                    <a href="#" class="block w-full">پوست</a>
-                                </li>
+                            <ul id="header-categories-wrapper" class="absolute z-50 bg-white -top-4 border invisible opacity-0 w-full group-hover:opacity-100 group-hover:visible group-hover:top-9 transition-all duration-300">
+
                             </ul>
                         </div>
 
                         <div class="flex gap-4 text-sm">
-                            <a href="#" class="hover:text-primaryRed transition">فروشگاه</a>
+                            <a href="shop.html" class="hover:text-primaryRed transition">فروشگاه</a>
                             <a href="checkout.html" class="hover:text-primaryRed transition">پرداخت</a>
                             <a href="cart.html" class="hover:text-primaryRed transition">سبد خرید</a>
                         </div>
@@ -252,7 +244,7 @@
 
     <main class="bg-white px-4 py-10">
         <div class="flex gap-6">
-            <div id="products-filters-section" class="fixed -right-96 top-0 h-full w-72 z-40 bg-white lg:static lg:block lg:w-1/4 space-y-6">
+            <div id="products-filters-section" class="fixed -right-96 top-0 h-full w-72 z-40 bg-white lg:sticky lg:block lg:w-1/4 space-y-6">
                 <div class="px-2 pt-6 sm:hidden">
                     <select name="" id="" class="border-b-2 py-1 focus:outline-none focus:border-b-darkRed w-full">
                         <option value="">مرتب سازی براساس ارزان ترین</option>
@@ -314,29 +306,7 @@
                 </div>
 
                 <div id="products-wrapper" class="mt-6">
-                    <div class="border max-w-xs p-4 select-none relative group">
-                        <a href="#">
-                            <img src="./images/پمپ-باد-فندکی-ارزان-pxw9ua07i7gvj8k0x6s9wfslb44lbqkw1tcoxl3zco.jpg" alt="">
-                        </a>
 
-                        <div class="text-center text-sm sm:text-base">
-                            <a href="#" class="text-gray-800">خرید پمپ باد فندکی ارزان</a>
-                            <p class="text-darkRed font-semibold mt-4">2,499,000 تومان</p>
-                        </div>
-
-                        <div class="absolute left-2 md:-left-0 top-4 bg-white rounded-lg flex flex-col gap-4 shadow px-3 py-2 transition-all duration-200 md:invisible md:opacity-0 group-hover:opacity-100 group-hover:visible group-hover:left-2">
-                            <div class="relative product-side-icon">
-                                <i class="fa-regular fa-heart md:text-xl cursor-pointer text-gray-800 hover:text-gray-500"></i>
-
-                                <p class="absolute -top-2 -right-32 bg-black text-white text-xs p-2 rounded-sm invisible opacity-0 transition-all">افزودن به علاقه مندی</p>
-                            </div>
-                            <div class="relative product-side-icon">
-                                <i class="fa-solid fa-cart-shopping text-sm md:text-lg cursor-pointer text-gray-800 hover:text-gray-500"></i>
-
-                                <p class="absolute -top-2 -right-32 bg-black text-white text-xs p-2 rounded-sm invisible opacity-0 transition-all">افزودن به سبد خرید</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -455,5 +425,6 @@
     <script src="./vendor/SwiperSlider/swiper.js"></script>
     <script src="./js/slider.js"></script>
     <script src="./js/shared.js" type="module"></script>
+    <script src="./js/shop.js" type="module"></script>
 </body>
 </html>

@@ -37,13 +37,15 @@ const showProductAllDetails = async () => {
     const productDetails = data.results.product
     const productRecommendations = data.results.recommendations
 
+    document.title = `زنبیل | ${data.results.seo.title}`
+
     // show product details
     productCategrotyPath.innerHTML = `خانه / ${productCategoryDetails.categoryLevel1} / <span class="text-black">${productCategoryDetails.leafCategory}</span>`
     productMainImg.src = productDetails.images[0]
 
     productDetails.images.slice(0, 3).forEach((imgSrc, index) => {
         productOtherImgsWrapper.insertAdjacentHTML('beforeend', `
-            <img onclick='changeProductMainImg(this.parentElement.children, this, ${JSON.stringify(imgSrc)})' class="${index === 0 ? "border-4 border-darkRed" : ""} w-[33%] md:w-28" src="${imgSrc}" alt="">
+            <img onclick='changeProductMainImg(this.parentElement.children, this, ${JSON.stringify(imgSrc)})' class="${index === 0 ? "border-4 border-darkRed" : ""} w-[33%] cursor-pointer md:w-28" src="${imgSrc}" alt="">
         `)
     })
 

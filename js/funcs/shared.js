@@ -1,3 +1,5 @@
+const mainUrl = "https://leverapi.f4rd1n.ir/api/digikala"
+
 const showSidebar = () => {
     const sidebarElem = document.getElementById('sidebar-parent')
 
@@ -41,18 +43,47 @@ const showSidebarMenus = () => {
         </a>
     `
 }
-const showSidebarCategories = () => {
+const showSidebarCategories = async () => {
     const sidebarCategoriesWrapper = document.getElementById('sidebar-menus-wrapper')
+    sidebarCategoriesWrapper.innerHTML = ''
 
-    sidebarCategoriesWrapper.innerHTML = `
-        <a href="shop.html" class="hover:text-primaryRed transition border-t  px-4 py-3">آرایشی</a>
-        <a href="shop.html" class="hover:text-primaryRed transition border-t px-4 py-3">شوینده</a>
-        <a href="shop.html" class="hover:text-primaryRed transition border-t px-4 py-3">لوازم الگتریکی</a>
-        <a href="shop.html" class="hover:text-primaryRed transition border-t px-4 py-3 flex items-center gap-2">لباس</a>
-        <a href="shop.html" class="hover:text-primaryRed transition border-y px-4 py-3 flex items-center gap-2">ریش تراش</a>
-    `
+    const res = await fetch(`${mainUrl}`)
+    const data = await res.json()
+
+    const categories = data.results.categories
+
+    categories.forEach(category => {
+        sidebarCategoriesWrapper.insertAdjacentHTML('beforeend', `
+            <a href="shop.html?categoryCode=${category.code}" class="hover:text-primaryRed transition border-t  px-4 py-3">${category.title_fa}</a>
+        `)
+    })
+}
+
+const searchProduct = () => {
+    const searchInputElem = document.getElementById('search-input')
+
+    location.href = `./shop.html?searchedValue=${searchInputElem.value}`
+}
+
+const showHeaderCategories = async () => {
+    const headerCategoriesWrapper = document.getElementById('header-categories-wrapper')
+
+    const res = await fetch(`${mainUrl}`)
+    const data = await res.json()
+
+    const categories = data.results.categories
+
+    console.log(categories)
+
+    categories.forEach(category => {
+        headerCategoriesWrapper.insertAdjacentHTML('beforeend', `
+        <li class="border-b p-2 font-medium text-gray-900 hover:bg-gray-100">
+            <a href="shop.html?categoryCode=${category.code}" class="block w-full">${category.title_fa}</a>
+        </li>
+        `)
+    })
 }
 
 export {
-    showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories
+    showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, searchProduct, showHeaderCategories
 }

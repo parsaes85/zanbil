@@ -172,12 +172,12 @@
                     </div>
 
                     <div class="w-1/2">
-                        <div class="relative w-full">
-                            <input type="text" class="w-full border-2 rounded-md py-2 px-4 focus:outline-none" placeholder="جستجوی محصولات">
-                            <div class="absolute left-0 top-0 bg-primaryRed cursor-pointer text-white h-full py-2.5 px-4 rounded-l-md transition hover:bg-darkRed">
+                        <form id="search-form" class="relative w-full">
+                            <input id="search-input" type="text" class="w-full border-2 rounded-md py-2 px-4 focus:outline-none" placeholder="جستجوی محصولات">
+                            <button class="absolute left-0 top-0 bg-primaryRed cursor-pointer text-white h-full py-2.5 px-4 rounded-l-md transition hover:bg-darkRed">
                                 <i class="fa-solid fa-magnifying-glass"></i>
-                            </div>
-                        </div>
+                            </button>
+                        </form>
                     </div>
 
                     <div>
@@ -197,16 +197,8 @@
                                 <i class="fa-solid fa-chevron-down mr-auto text-sm"></i>
                             </div>
 
-                            <ul class="absolute z-50 bg-white -top-4 border invisible opacity-0 w-full group-hover:opacity-100 group-hover:visible group-hover:top-9 transition-all duration-300">
-                                <li class="border-b p-2 font-medium text-gray-900 hover:bg-gray-100">
-                                    <a href="#" class="block w-full">آرایشی و گریم</a>
-                                </li>
-                                <li class="border-b p-2 font-medium text-gray-900 hover:bg-gray-100">
-                                    <a href="#" class="block w-full">مو</a>
-                                </li>
-                                <li class="border-b p-2 font-medium text-gray-900 hover:bg-gray-100">
-                                    <a href="#" class="block w-full">پوست</a>
-                                </li>
+                            <ul id="header-categories-wrapper" class="absolute z-50 bg-white -top-4 border invisible opacity-0 w-full group-hover:opacity-100 group-hover:visible group-hover:top-9 transition-all duration-300">
+
                             </ul>
                         </div>
 
@@ -262,7 +254,7 @@
 
                     <div class="relative">
                         <img id="product-main-img" src="" class="w-full sm:w-96" alt="">
-                        <span id="product-discount-percent" class="bg-darkRed text-white px-4 py-1 text-xs absolute left-0 sm:left-8 top-0 sm:top-3 rounded-full"></span>
+                        <span id="product-discount-percent" class="bg-darkRed text-white px-4 py-1 text-xs absolute left-2 sm:left-8 top-2 sm:top-3 rounded-full"></span>
                     </div>
                 </div>
 
