@@ -244,8 +244,12 @@
 
     <main class="bg-white px-4 py-10">
         <div class="flex gap-6">
-            <div id="products-filters-section" class="fixed -right-96 top-0 h-full w-72 z-40 bg-white lg:sticky lg:block lg:w-1/4 space-y-6">
-                <div class="px-2 pt-6 sm:hidden">
+            <div id="products-filters-section" class="fixed -right-96 top-0 h-full w-72 z-50 overflow-y-scroll bg-white lg:sticky lg:block lg:w-1/4 space-y-6 transition-all">
+                <div id="close-filters-sidebar-btn">
+                    <i class="fa fa-xmark text-xl pr-4 pt-4 lg:hidden"></i>
+                </div>
+
+                <div class="px-2 sm:hidden">
                     <select name="" id="" class="border-b-2 py-1 focus:outline-none focus:border-b-darkRed w-full">
                         <option value="">مرتب سازی براساس ارزان ترین</option>
                         <option value="">مرتب سازی براساس گران ترین</option>
@@ -257,28 +261,28 @@
                 <div class="border p-5 space-y-4">
                     <h1 class="text-lg text-gray-800 bg-gray-200 px-4 py-2">فیلتر قیمت</h1>
                     <div>
-                        <div class="h-1 rounded bg-gray-100 relative">
-                            <div class="h-1 rounded bg-darkRed absolute right-1/4 left-1/4"></div>
+                        <div class="slider h-1 rounded bg-gray-100 relative">
+                            <div class="progress h-1 rounded bg-darkRed absolute right-0 left-0"></div>
                         </div>
                         <div class="range-input relative">
-                            <input type="range" class="absolute -top-1 h-1 w-full appearance-none bg-inherit" min="0" max="10000" value="2500">
-                            <input type="range" class="absolute -top-1 h-1 w-full appearance-none bg-inherit" min="0" max="10000" value="7500">
+                            <input type="range" class="range-min absolute -top-1 h-1 w-full appearance-none pointer-events-none bg-inherit" min="0" max="50000000" value="0">
+                            <input type="range" class="range-max absolute -top-1 h-1 w-full appearance-none pointer-events-none bg-inherit" min="0" max="50000000" value="50000000">
                         </div>
                     </div>
                     <div class="text-sm">
                         <span class="text-gray-500">قیمت: </span>
-                        <span class="font-semibold">30,000 تومان</span>
+                        <span class="price-input font-semibold">0 تومان</span>
                         ---
-                        <span class="font-semibold">9,500,000 تومان</span>
+                        <span class="price-input font-semibold">50,000,000 تومان</span>
                     </div>
-                    <button class="bg-gray-50 px-4 py-2 rounded-md text-sm">فیلتر</button>
+                    <button id="filter-by-price-btn" class="bg-gray-50 px-4 py-2 rounded-md text-sm">فیلتر</button>
                 </div>
 
                 <div class="border p-5 space-y-4">
                     <h1 class="text-lg text-gray-800 bg-gray-200 px-4 py-2">دسته‌های محصولات</h1>
 
-                    <div>
-                        <a href="#" class="text-sm text-gray-500 block">آرایشی</a>
+                    <div id="categories-filter-wrapper">
+
                     </div>
                 </div>
             </div>
@@ -286,7 +290,7 @@
             <div class="w-full lg:w-3/4">
                 <div class="flex justify-between items-end lg:items-center">
                     <div class="flex flex-col-reverse lg:flex-row gap-4">
-                        <div class="lg:hidden flex items-center gap-2">
+                        <div id="show-filters-sidebar-btn" class="lg:hidden flex items-center gap-2 cursor-pointer">
                             <img src="./images/icon-hamburger.svg" alt="">
                             <p>مشاهده فیلترها</p>
                         </div>
@@ -391,7 +395,7 @@
     <div id="mobile-footer" class="fixed bottom-0 right-0 bg-white w-full z-40 py-3 shadow md:hidden">
         <div>
             <div class="flex justify-around text-gray-800">
-                <a href="#" class="flex flex-col items-center text-xs">
+                <a href="shop.html" class="flex flex-col items-center text-xs">
                     <div class="relative">
                         <i class="fa-solid fa-store text-lg"></i>
                     </div>

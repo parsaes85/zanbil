@@ -31,6 +31,14 @@
     width: 4px;
     background: #c6053e;
     appearance: none;
+    pointer-events: auto;
+}
+.range-input input[type="range"]::-moz-range-thumb {
+    height: 17px;
+    width: 4px;
+    background: #c6053e;
+    appearance: none;
+    pointer-events: auto;
 }
 
 #products-wrapper {

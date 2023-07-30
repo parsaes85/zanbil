@@ -73,8 +73,6 @@ const showHeaderCategories = async () => {
 
     const categories = data.results.categories
 
-    console.log(categories)
-
     categories.forEach(category => {
         headerCategoriesWrapper.insertAdjacentHTML('beforeend', `
         <li class="border-b p-2 font-medium text-gray-900 hover:bg-gray-100">
