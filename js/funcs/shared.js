@@ -59,8 +59,13 @@ const showSidebarCategories = async () => {
     })
 }
 
-const searchProduct = () => {
+const desktopSearchProduct = () => {
     const searchInputElem = document.getElementById('search-input')
+
+    location.href = `./shop.html?searchedValue=${searchInputElem.value}`
+}
+const mobileSearchProduct = () => {
+    const searchInputElem = document.getElementById('mobile-search-input')
 
     location.href = `./shop.html?searchedValue=${searchInputElem.value}`
 }
@@ -83,5 +88,5 @@ const showHeaderCategories = async () => {
 }
 
 export {
-    showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, searchProduct, showHeaderCategories
+    showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, desktopSearchProduct, mobileSearchProduct, showHeaderCategories
 }

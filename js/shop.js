@@ -1,4 +1,4 @@
-import { showAllProducts, showSearchedProducts, showCategoryProducts, showCategoryFilters, filterProductsByCategory, filterProductsByPrice, showFiltersSidebar, closeFiltersSidebar } from "./funcs/shop.js";
+import { showAllProducts, showSearchedProducts, showCategoryProducts, showCategoryFilters, filterProductsByCategory, filterProductsByPrice, showFiltersSidebar, closeFiltersSidebar, addToWishlist, removeFromWishlist } from "./funcs/shop.js";
 import { getUrlParam } from "./funcs/utils.js"
 
 
@@ -10,7 +10,8 @@ const showFiltersSidebarBtn = document.getElementById('show-filters-sidebar-btn'
 const closeFiltersSidebarBtn = document.getElementById('close-filters-sidebar-btn')
 
 
-window.filterProductsByCategory = filterProductsByCategory
+window.addToWishlist = addToWishlist
+window.removeFromWishlist = removeFromWishlist
 
 const searchedValue = getUrlParam('searchedValue')
 const categoryCode = getUrlParam('categoryCode')
@@ -41,7 +42,9 @@ priceFilterRangeInputs.forEach(input => {
 window.addEventListener('load', () => {
     showCategoryFilters()
 
-    if(searchedValue !== null) {
+    if(categoryCode !== null && searchedValue !== null) {
+        filterProductsByCategory()
+    } else if(searchedValue !== null) {
         showSearchedProducts()
     } else if (categoryCode !== null) {
         showCategoryProducts()

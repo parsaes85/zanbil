@@ -1,4 +1,4 @@
-import { getUrlParam } from "./utils.js"
+import { getLocalStorage, getUrlParam, setToLocalStorage, showWishlistProductsCount } from "./utils.js"
 
 const productCategrotyPath = document.getElementById('product-categroty-path')
 const productOtherImgsWrapper = document.getElementById('product-other-imgs-wrapper')
@@ -15,9 +15,13 @@ const productDescription = document.getElementById('product-description')
 const productCommentsTitle = document.getElementById('product-comments-title')
 const productCommentsWrapper = document.getElementById('product-comments-wrapper')
 const productRecommendationsWrapper = document.getElementById('product-recommendations-wrapper')
+const addToWishlistBtn = document.getElementById('add-to-wishlist-btn')
 
 const mainUrl = "https://leverapi.f4rd1n.ir/api/digikala"
 const productId = getUrlParam('id')
+
+let wishlistArray = []
+let globalProductInfo = null
 
 const changeProductMainImg = (otherProductImages, clickedImg ,imgSrc) => {
     productMainImg.src = imgSrc
@@ -36,6 +40,14 @@ const showProductAllDetails = async () => {
     const productCategoryDetails = data.results.eventData
     const productDetails = data.results.product
     const productRecommendations = data.results.recommendations
+
+    globalProductInfo = {
+        id: productDetails.id,
+        image: productDetails.images[0],
+        price: productDetails.price,
+        status: productDetails.status,
+        title_fa: productDetails.mainDetails.title
+    }
 
     document.title = `زنبیل | ${data.results.seo.title}`
 
@@ -59,8 +71,6 @@ const showProductAllDetails = async () => {
     productWatchingCount.innerHTML = productDetails.images.length
     productDescription.innerHTML = productDetails.introduce
     productCommentsTitle.innerHTML = `${productDetails.last_comments.length} دیدگاه برای ${productDetails.mainDetails.title}`
-
-    console.log(data.results)
 
     // show product comments
     productDetails.last_comments.forEach(comment => {
@@ -149,6 +159,54 @@ const showProductAllDetails = async () => {
     })
 }
 
+const showWishlistBtn = () => {
+    wishlistArray = getLocalStorage('zanbil-wishlist')
+
+    addToWishlistBtn.innerHTML = `
+    ${
+        wishlistArray.some(wishlist => wishlist.id === Number(productId) ) ? `        
+        <div onclick='removeFromWishlist()' class="flex gap-2 items-center">
+            <i class="fa fa-heart text-red-600"></i>
+            <p>حذف از علاقه‌مندی</p>
+        </div>` : `
+        <div onclick='addToWishlist()' class="flex gap-2 items-center">
+            <i class="fa-regular fa-heart"></i>
+            <p>افزودن به علاقه‌مندی</p>
+        </div>`
+    }
+    `
+}
+
+const addToWishlist = () => {
+    wishlistArray = getLocalStorage('zanbil-wishlist')
+
+    let isInWishlist = wishlistArray.some(wishlist => wishlist.id === Number(productId) )
+
+    console.log(globalProductInfo)
+
+    if(!isInWishlist) {
+        wishlistArray.push(globalProductInfo)
+    }
+
+    setToLocalStorage('zanbil-wishlist', wishlistArray)
+
+    showWishlistBtn()
+    showWishlistProductsCount()
+}
+
+const removeFromWishlist = () => {
+    wishlistArray = getLocalStorage('zanbil-wishlist')
+
+    let mainWishlistIndex = wishlistArray.findIndex(wishlist => wishlist.id === Number(productId))
+
+    wishlistArray.splice(mainWishlistIndex, 1)
+
+    setToLocalStorage('zanbil-wishlist', wishlistArray)
+
+    showWishlistBtn()
+    showWishlistProductsCount()
+}
+
 export {
-    showProductAllDetails, changeProductMainImg
+    showProductAllDetails, showWishlistBtn, changeProductMainImg, addToWishlist, removeFromWishlist
 }

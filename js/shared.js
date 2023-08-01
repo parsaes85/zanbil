@@ -1,11 +1,13 @@
-import { showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, searchProduct, showHeaderCategories } from "./funcs/shared.js";
+import { showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, desktopSearchProduct, mobileSearchProduct, showHeaderCategories} from "./funcs/shared.js";
+import { showWishlistProductsCount } from "./funcs/utils.js";
 
 const sidebarBtn = document.getElementById('sidebar-btn')
 const shoppingCartSidebarBtns = document.querySelectorAll('.shopping-cart-sidebar-btn')
 const closeShoppingCartSidebarBtn = document.getElementById('close-shopping-cart-sidebar-btn')
 const showSidebarMenusBtn = document.getElementById('show-sidebar-menus-btn')
 const showSidebarCategoriesBtn = document.getElementById('show-sidebar-categories-btn')
-const searchForm = document.getElementById('search-form')
+const desktopSearchForm = document.getElementById('search-form')
+const mobileSearchForm = document.getElementById('mobile-search-form')
 
 shoppingCartSidebarBtns.forEach(btn => {
     btn.addEventListener('click', e => {
@@ -20,6 +22,7 @@ closeShoppingCartSidebarBtn.addEventListener('click', e => {
 })
 window.addEventListener('load', () => {
     showHeaderCategories()
+    showWishlistProductsCount()
 })
 window.addEventListener('click', e => {
     if(e.target.id === "sidebar-parent") closeSidebar()
@@ -37,8 +40,13 @@ showSidebarCategoriesBtn.addEventListener('click', e => {
 
     showSidebarCategories()
 })
-searchForm.addEventListener('submit', e => {
+desktopSearchForm.addEventListener('submit', e => {
     e.preventDefault()
     
-    searchProduct()
+    desktopSearchProduct()
+})
+mobileSearchForm.addEventListener('submit', e => {
+    e.preventDefault()
+
+    mobileSearchProduct()
 })
