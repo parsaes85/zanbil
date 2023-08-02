@@ -8,6 +8,7 @@ const priceFilterProgress = document.querySelector('.slider .progress')
 const filterByPriceBtn = document.getElementById('filter-by-price-btn')
 const showFiltersSidebarBtn = document.getElementById('show-filters-sidebar-btn')
 const closeFiltersSidebarBtn = document.getElementById('close-filters-sidebar-btn')
+const productsWrapper = document.getElementById('products-wrapper')
 
 
 window.addToWishlist = addToWishlist
@@ -17,6 +18,7 @@ const searchedValue = getUrlParam('searchedValue')
 const categoryCode = getUrlParam('categoryCode')
 
 let priceGap = 1000000
+let currentPage = 1
 
 priceFilterRangeInputs.forEach(input => {
     input.addEventListener('input', e => {
@@ -43,17 +45,43 @@ window.addEventListener('load', () => {
     showCategoryFilters()
 
     if(categoryCode !== null && searchedValue !== null) {
-        filterProductsByCategory()
+        filterProductsByCategory(currentPage)
     } else if(searchedValue !== null) {
-        showSearchedProducts()
+        showSearchedProducts(currentPage)
     } else if (categoryCode !== null) {
-        showCategoryProducts()
+        showCategoryProducts(currentPage)
     } else {
-        showAllProducts()
+        showAllProducts(currentPage)
     }
 })
 
+window.addEventListener('scroll', () => {
+    const {
+        scrollTop,
+        scrollHeight,
+        clientHeight
+    } = document.documentElement;
+
+    
+    if (scrollTop + clientHeight >= scrollHeight - 1000 && scrollTop + clientHeight <= scrollHeight - 980 ) {
+        currentPage++
+        if(categoryCode !== null && searchedValue !== null) {
+            filterProductsByCategory(currentPage)
+        } else if(searchedValue !== null) {
+            showSearchedProducts(currentPage)
+        } else if (categoryCode !== null) {
+            showCategoryProducts(currentPage)
+        } else {
+            showAllProducts(currentPage)
+        }
+        console.log("next page", currentPage)
+    }
+}, {
+    passive: true
+});
+
 filterByPriceBtn.addEventListener('click', e => {
+    productsWrapper.innerHTML = ''
     filterProductsByPrice()
 })
 showFiltersSidebarBtn.addEventListener('click', e => {

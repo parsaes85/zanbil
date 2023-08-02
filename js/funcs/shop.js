@@ -10,7 +10,6 @@ const categoryCode = getUrlParam('categoryCode')
 
 const insertProductHtmlBox = (array) => {
     wishlistArray = getLocalStorage('zanbil-wishlist')
-    productsWrapper.innerHTML = ''
     
     array.forEach(product => {
         productsWrapper.insertAdjacentHTML('beforeend', `
@@ -61,8 +60,8 @@ const insertProductHtmlBox = (array) => {
     })
 }
 
-const showAllProducts = async () => {
-    const res = await fetch(`${mainUrl}/search?q=&page=1`)
+const showAllProducts = async (page = 1) => {
+    const res = await fetch(`${mainUrl}/search?q=&page=${page}`)
     const data = await res.json()
 
     const products = data.results.products
@@ -70,8 +69,8 @@ const showAllProducts = async () => {
     insertProductHtmlBox(products)
 }
 
-const showSearchedProducts = async () => {
-    const res = await fetch(`${mainUrl}/search?q=${searchedValue}&page=1`)
+const showSearchedProducts = async (page = 1) => {
+    const res = await fetch(`${mainUrl}/search?q=${searchedValue}&page=${page}`)
     const data = await res.json()
 
     const products = data.results.products
@@ -79,8 +78,8 @@ const showSearchedProducts = async () => {
     insertProductHtmlBox(products)
 }
 
-const showCategoryProducts = async () => {
-    const res = await fetch(`${mainUrl}/categories/${categoryCode}/search?q=&page=1`)
+const showCategoryProducts = async (page = 1) => {
+    const res = await fetch(`${mainUrl}/categories/${categoryCode}/search?q=&page=${page}`)
     const data = await res.json()
 
     const products = data.results.products
@@ -103,10 +102,10 @@ const showCategoryFilters = async () => {
     })
 }
 
-const filterProductsByCategory = async () => {
+const filterProductsByCategory = async (page = 1) => {
     if(searchedValue) {
         console.log(categoryCode, 'searched')
-        const res = await fetch(`${mainUrl}/categories/${categoryCode}/search?q=${searchedValue}&page=1`)
+        const res = await fetch(`${mainUrl}/categories/${categoryCode}/search?q=${searchedValue}&page=${page}`)
         const data = await res.json()
     
         const products = data.results.products
@@ -114,7 +113,7 @@ const filterProductsByCategory = async () => {
         insertProductHtmlBox(products)
     } else {
         console.log(categoryCode, 'not searched')
-        const res = await fetch(`${mainUrl}/categories/${categoryCode}/search?q=&page=1`)
+        const res = await fetch(`${mainUrl}/categories/${categoryCode}/search?q=&page=${page}`)
         const data = await res.json()
     
         const products = data.results.products
@@ -169,6 +168,7 @@ const closeFiltersSidebar = () => {
 
 const addToWishlist = (productInfo) => {
     addToWishlistLocalStorage(productInfo.id, productInfo)
+    productsWrapper.innerHTML = ''
 
     if(categoryCode !== null && searchedValue !== null) {
         filterProductsByCategory()
@@ -185,6 +185,7 @@ const addToWishlist = (productInfo) => {
 
 const removeFromWishlist = (productInfo) => {
     removeFromWishlistLocalStorage(productInfo.id)
+    productsWrapper.innerHTML = ''
 
     if(categoryCode !== null && searchedValue !== null) {
         filterProductsByCategory()
