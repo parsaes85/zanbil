@@ -28,6 +28,29 @@ const showWishlistProductsCount = () => {
         elem.innerHTML = wishlistArray.length
     })
 }
+
+const addToWishlistLocalStorage = (productId, productInfo) => {
+    wishlistArray = getLocalStorage('zanbil-wishlist')
+
+    let isInWishlist = wishlistArray.some(wishlist => wishlist.id === productId )
+
+    if(!isInWishlist) {
+        wishlistArray.push(productInfo)
+    }
+
+    setToLocalStorage('zanbil-wishlist', wishlistArray)
+}
+
+const removeFromWishlistLocalStorage = (productId) => {
+    wishlistArray = getLocalStorage('zanbil-wishlist')
+
+    let mainWishlistIndex = wishlistArray.findIndex(wishlist => wishlist.id == productId)
+
+    wishlistArray.splice(mainWishlistIndex, 1)
+
+    setToLocalStorage('zanbil-wishlist', wishlistArray)
+}
+
 export {
-    getUrlParam, setToLocalStorage, getLocalStorage, showWishlistProductsCount
+    getUrlParam, setToLocalStorage, getLocalStorage, showWishlistProductsCount, addToWishlistLocalStorage, removeFromWishlistLocalStorage
 }

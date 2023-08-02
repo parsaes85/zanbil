@@ -1,4 +1,4 @@
-import { getLocalStorage, getUrlParam, setToLocalStorage, showWishlistProductsCount } from "./utils.js"
+import { getLocalStorage, getUrlParam, setToLocalStorage, showWishlistProductsCount, addToWishlistLocalStorage, removeFromWishlistLocalStorage } from "./utils.js"
 
 const mainUrl = "https://leverapi.f4rd1n.ir/api/digikala"
 
@@ -39,10 +39,10 @@ const insertProductHtmlBox = (array, parentElem) => {
             <div class="relative product-side-icon">
             ${
                 wishlistArray.some(wishlist => wishlist.id === product.id ) ? `
-                <i onclick='removeFromWishlist(${JSON.stringify(product)})' class="fa fa-heart text-red-600 md:text-xl cursor-pointer hover:text-red-700"></i>
+                <i onclick='removeFromWishlist(${JSON.stringify(product)}, this)' class="fa fa-heart text-red-600 md:text-xl cursor-pointer hover:text-red-700"></i>
                 <p class="absolute -top-2 -right-32 bg-black text-white text-xs p-2 rounded-sm invisible opacity-0 transition-all">حذف از علاقه مندی</p>
                 ` : `
-                <i onclick='addToWishlist(${JSON.stringify(product)})' class="fa-regular fa-heart md:text-xl cursor-pointer text-gray-800 hover:text-gray-500"></i>
+                <i onclick='addToWishlist(${JSON.stringify(product)}, this)' class="fa-regular fa-heart md:text-xl cursor-pointer text-gray-800 hover:text-gray-500"></i>
                 <p class="absolute -top-2 -right-32 bg-black text-white text-xs p-2 rounded-sm invisible opacity-0 transition-all">افزودن به علاقه مندی</p>
                 `
             }
@@ -80,34 +80,26 @@ const showBestSellingProducts = async () => {
     insertProductHtmlBox(products, bestsellingProductsWrapper)
 }
 
-const addToWishlist = (productInfo) => {
-    wishlistArray = getLocalStorage('zanbil-wishlist')
-
-    let isInWishlist = wishlistArray.some(wishlist => wishlist.id === productInfo.id )
-
-    if(!isInWishlist) {
-        wishlistArray.push(productInfo)
-    }
-
-    setToLocalStorage('zanbil-wishlist', wishlistArray)
-
-    showIncredibleProducts()
-    showBestSellingProducts()
+const addToWishlist = (productInfo, elem) => {
+    addToWishlistLocalStorage(productInfo.id, productInfo)
     showWishlistProductsCount()
+
+    if(elem.closest(".swiper-wrapper").id == "incredible-products-wrapper") {
+        showIncredibleProducts()
+    } else if (elem.closest(".swiper-wrapper").id == "bestselling-products-wrapper") {
+        showBestSellingProducts()
+    }
 }
 
-const removeFromWishlist = (productInfo) => {
-    wishlistArray = getLocalStorage('zanbil-wishlist')
-
-    let mainWishlistIndex = wishlistArray.findIndex(wishlist => wishlist.id == productInfo.id)
-
-    wishlistArray.splice(mainWishlistIndex, 1)
-
-    setToLocalStorage('zanbil-wishlist', wishlistArray)
-    
-    showIncredibleProducts()
-    showBestSellingProducts()
+const removeFromWishlist = (productInfo, elem) => {
+    removeFromWishlistLocalStorage(productInfo.id)
     showWishlistProductsCount()
+    
+    if(elem.closest(".swiper-wrapper").id == "incredible-products-wrapper") {
+        showIncredibleProducts()
+    } else if (elem.closest(".swiper-wrapper").id == "bestselling-products-wrapper") {
+        showBestSellingProducts()
+    }
 }
 
 export {

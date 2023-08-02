@@ -1,4 +1,4 @@
-import { getLocalStorage, getUrlParam, setToLocalStorage, showWishlistProductsCount } from "./utils.js"
+import { getLocalStorage, getUrlParam, setToLocalStorage, showWishlistProductsCount, addToWishlistLocalStorage, removeFromWishlistLocalStorage } from "./utils.js"
 
 const productCategrotyPath = document.getElementById('product-categroty-path')
 const productOtherImgsWrapper = document.getElementById('product-other-imgs-wrapper')
@@ -178,31 +178,13 @@ const showWishlistBtn = () => {
 }
 
 const addToWishlist = () => {
-    wishlistArray = getLocalStorage('zanbil-wishlist')
-
-    let isInWishlist = wishlistArray.some(wishlist => wishlist.id === Number(productId) )
-
-    console.log(globalProductInfo)
-
-    if(!isInWishlist) {
-        wishlistArray.push(globalProductInfo)
-    }
-
-    setToLocalStorage('zanbil-wishlist', wishlistArray)
-
+    addToWishlistLocalStorage(Number(productId), globalProductInfo)
     showWishlistBtn()
     showWishlistProductsCount()
 }
 
 const removeFromWishlist = () => {
-    wishlistArray = getLocalStorage('zanbil-wishlist')
-
-    let mainWishlistIndex = wishlistArray.findIndex(wishlist => wishlist.id === Number(productId))
-
-    wishlistArray.splice(mainWishlistIndex, 1)
-
-    setToLocalStorage('zanbil-wishlist', wishlistArray)
-
+    removeFromWishlistLocalStorage(Number(productId))
     showWishlistBtn()
     showWishlistProductsCount()
 }

@@ -1,4 +1,4 @@
-import { getLocalStorage, setToLocalStorage, showWishlistProductsCount } from "./utils.js"
+import { getLocalStorage, setToLocalStorage, showWishlistProductsCount, removeFromWishlistLocalStorage } from "./utils.js"
 
 let wishlistArray = []
 
@@ -46,14 +46,7 @@ const showAllWishlistProducts = () => {
 }
 
 const removeFromWishlist = (productInfo) => {
-    wishlistArray = getLocalStorage('zanbil-wishlist')
-
-    let mainWishlistIndex = wishlistArray.findIndex(wishlist => wishlist.id == productInfo.id)
-
-    wishlistArray.splice(mainWishlistIndex, 1)
-
-    setToLocalStorage('zanbil-wishlist', wishlistArray)
-    
+    removeFromWishlistLocalStorage(productInfo.id)    
     showAllWishlistProducts()
     showWishlistProductsCount()
 }
