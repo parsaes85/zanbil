@@ -8,7 +8,6 @@ const priceFilterProgress = document.querySelector('.slider .progress')
 const filterByPriceBtn = document.getElementById('filter-by-price-btn')
 const showFiltersSidebarBtn = document.getElementById('show-filters-sidebar-btn')
 const closeFiltersSidebarBtn = document.getElementById('close-filters-sidebar-btn')
-const productsWrapper = document.getElementById('products-wrapper')
 
 
 window.addToWishlist = addToWishlist
@@ -45,13 +44,13 @@ window.addEventListener('load', () => {
     showCategoryFilters()
 
     if(categoryCode !== null && searchedValue !== null) {
-        filterProductsByCategory(currentPage)
+        filterProductsByCategory(false, currentPage)
     } else if(searchedValue !== null) {
-        showSearchedProducts(currentPage)
+        showSearchedProducts(false, currentPage)
     } else if (categoryCode !== null) {
-        showCategoryProducts(currentPage)
+        showCategoryProducts(false, currentPage)
     } else {
-        showAllProducts(currentPage)
+        showAllProducts(false, currentPage)
     }
 })
 
@@ -63,16 +62,16 @@ window.addEventListener('scroll', () => {
     } = document.documentElement;
 
     
-    if (scrollTop + clientHeight >= scrollHeight - 1000 && scrollTop + clientHeight <= scrollHeight - 980 ) {
+    if (scrollTop + clientHeight >= scrollHeight - 1100 && scrollTop + clientHeight <= scrollHeight - 1070 ) {
         currentPage++
         if(categoryCode !== null && searchedValue !== null) {
-            filterProductsByCategory(currentPage)
+            filterProductsByCategory(false, currentPage)
         } else if(searchedValue !== null) {
-            showSearchedProducts(currentPage)
+            showSearchedProducts(false, currentPage)
         } else if (categoryCode !== null) {
-            showCategoryProducts(currentPage)
+            showCategoryProducts(false, currentPage)
         } else {
-            showAllProducts(currentPage)
+            showAllProducts(false, currentPage)
         }
         console.log("next page", currentPage)
     }
@@ -81,8 +80,7 @@ window.addEventListener('scroll', () => {
 });
 
 filterByPriceBtn.addEventListener('click', e => {
-    productsWrapper.innerHTML = ''
-    filterProductsByPrice()
+    filterProductsByPrice(true)
 })
 showFiltersSidebarBtn.addEventListener('click', e => {
     showFiltersSidebar()

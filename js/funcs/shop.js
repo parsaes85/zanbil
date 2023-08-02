@@ -1,4 +1,4 @@
-import { getLocalStorage, getUrlParam, setToLocalStorage, showWishlistProductsCount, addToWishlistLocalStorage, removeFromWishlistLocalStorage } from "./utils.js"
+import { getLocalStorage, getUrlParam, showWishlistProductsCount, addToWishlistLocalStorage, removeFromWishlistLocalStorage } from "./utils.js"
 
 const productsWrapper = document.getElementById('products-wrapper')
 
@@ -8,8 +8,11 @@ let wishlistArray = []
 const searchedValue = getUrlParam('searchedValue')
 const categoryCode = getUrlParam('categoryCode')
 
-const insertProductHtmlBox = (array) => {
+const insertProductHtmlBox = (array, emptyContainer) => {
     wishlistArray = getLocalStorage('zanbil-wishlist')
+    if(emptyContainer) {
+        productsWrapper.innerHTML = ''
+    }
     
     array.forEach(product => {
         productsWrapper.insertAdjacentHTML('beforeend', `
@@ -60,31 +63,31 @@ const insertProductHtmlBox = (array) => {
     })
 }
 
-const showAllProducts = async (page = 1) => {
+const showAllProducts = async (emptyContainer, page = 1) => {
     const res = await fetch(`${mainUrl}/search?q=&page=${page}`)
     const data = await res.json()
 
     const products = data.results.products
 
-    insertProductHtmlBox(products)
+    insertProductHtmlBox(products, emptyContainer)
 }
 
-const showSearchedProducts = async (page = 1) => {
+const showSearchedProducts = async (emptyContainer, page = 1) => {
     const res = await fetch(`${mainUrl}/search?q=${searchedValue}&page=${page}`)
     const data = await res.json()
 
     const products = data.results.products
 
-    insertProductHtmlBox(products)
+    insertProductHtmlBox(products, emptyContainer)
 }
 
-const showCategoryProducts = async (page = 1) => {
+const showCategoryProducts = async (emptyContainer, page = 1) => {
     const res = await fetch(`${mainUrl}/categories/${categoryCode}/search?q=&page=${page}`)
     const data = await res.json()
 
     const products = data.results.products
 
-    insertProductHtmlBox(products)
+    insertProductHtmlBox(products, emptyContainer)
 }
 
 const showCategoryFilters = async () => {
@@ -102,23 +105,19 @@ const showCategoryFilters = async () => {
     })
 }
 
-const filterProductsByCategory = async (page = 1) => {
+const filterProductsByCategory = async (emptyContainer, page = 1) => {
     if(searchedValue) {
-        console.log(categoryCode, 'searched')
         const res = await fetch(`${mainUrl}/categories/${categoryCode}/search?q=${searchedValue}&page=${page}`)
         const data = await res.json()
     
         const products = data.results.products
-        console.log(products)
-        insertProductHtmlBox(products)
+        insertProductHtmlBox(products, emptyContainer)
     } else {
-        console.log(categoryCode, 'not searched')
         const res = await fetch(`${mainUrl}/categories/${categoryCode}/search?q=&page=${page}`)
         const data = await res.json()
     
         const products = data.results.products
-        console.log(products)
-        insertProductHtmlBox(products)
+        insertProductHtmlBox(products, emptyContainer)
     }
 
     closeFiltersSidebar()
@@ -138,16 +137,14 @@ const filterProductsByPrice = async () => {
 
         const products = data.results.products
 
-        console.log(products)
-        insertProductHtmlBox(products)
+        insertProductHtmlBox(products, true)
     } else {
         const res = await fetch(`${mainUrl}/search?price[max]=${maxPrice}&price[min]=${minPrice}&q=&page=1`)
         const data = await res.json()
 
         const products = data.results.products
 
-        console.log(products)
-        insertProductHtmlBox(products)
+        insertProductHtmlBox(products, true)
     }
 
     closeFiltersSidebar()
@@ -168,16 +165,15 @@ const closeFiltersSidebar = () => {
 
 const addToWishlist = (productInfo) => {
     addToWishlistLocalStorage(productInfo.id, productInfo)
-    productsWrapper.innerHTML = ''
 
     if(categoryCode !== null && searchedValue !== null) {
-        filterProductsByCategory()
+        filterProductsByCategory(true)
     } else if(searchedValue !== null) {
-        showSearchedProducts()
+        showSearchedProducts(true)
     } else if (categoryCode !== null) {
-        showCategoryProducts()
+        showCategoryProducts(true)
     } else {
-        showAllProducts()
+        showAllProducts(true)
     }
 
     showWishlistProductsCount()
@@ -185,16 +181,15 @@ const addToWishlist = (productInfo) => {
 
 const removeFromWishlist = (productInfo) => {
     removeFromWishlistLocalStorage(productInfo.id)
-    productsWrapper.innerHTML = ''
 
     if(categoryCode !== null && searchedValue !== null) {
-        filterProductsByCategory()
+        filterProductsByCategory(true)
     } else if(searchedValue !== null) {
-        showSearchedProducts()
+        showSearchedProducts(true)
     } else if (categoryCode !== null) {
-        showCategoryProducts()
+        showCategoryProducts(true)
     } else {
-        showAllProducts()
+        showAllProducts(true)
     }
 
     showWishlistProductsCount()
