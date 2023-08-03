@@ -1,4 +1,5 @@
 let wishlistArray = []
+let cartProductsArray = []
 
 const getUrlParam = key => {
     const urlParams = new URLSearchParams(window.location.search)
@@ -51,6 +52,29 @@ const removeFromWishlistLocalStorage = (productId) => {
     setToLocalStorage('zanbil-wishlist', wishlistArray)
 }
 
+const addToCartLocalStorage = (productId, productInfo, productCount) => {
+    cartProductsArray = getLocalStorage('zanbil-cart')
+
+    let isInCart = cartProductsArray.some(product => product.id === productId )
+
+    productInfo.count = productCount
+    if(!isInCart) {
+        cartProductsArray.push(productInfo)
+    }
+
+    setToLocalStorage('zanbil-cart', cartProductsArray)
+}
+
+const removeFromCartLocalStorage = (productId) => {
+    cartProductsArray = getLocalStorage('zanbil-cart')
+
+    let mainCartProductIndex = cartProductsArray.findIndex(product => product.id == productId)
+
+    cartProductsArray.splice(mainCartProductIndex, 1)
+
+    setToLocalStorage('zanbil-cart', cartProductsArray)
+}
+
 export {
-    getUrlParam, setToLocalStorage, getLocalStorage, showWishlistProductsCount, addToWishlistLocalStorage, removeFromWishlistLocalStorage
+    getUrlParam, setToLocalStorage, getLocalStorage, showWishlistProductsCount, addToWishlistLocalStorage, removeFromWishlistLocalStorage, addToCartLocalStorage, removeFromCartLocalStorage
 }

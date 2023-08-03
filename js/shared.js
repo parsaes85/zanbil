@@ -1,4 +1,4 @@
-import { showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, desktopSearchProduct, mobileSearchProduct, showHeaderCategories} from "./funcs/shared.js";
+import { showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, desktopSearchProduct, mobileSearchProduct, showHeaderCategories, showProductInShoppingCartSidebar, showCartProductsCount, sumCartTotalPrice} from "./funcs/shared.js";
 import { showWishlistProductsCount } from "./funcs/utils.js";
 
 const sidebarBtn = document.getElementById('sidebar-btn')
@@ -23,6 +23,8 @@ closeShoppingCartSidebarBtn.addEventListener('click', e => {
 window.addEventListener('load', () => {
     showHeaderCategories()
     showWishlistProductsCount()
+    showProductInShoppingCartSidebar()
+    showCartProductsCount()
 })
 window.addEventListener('click', e => {
     if(e.target.id === "sidebar-parent") closeSidebar()

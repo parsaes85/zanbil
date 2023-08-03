@@ -1,4 +1,5 @@
-import { getLocalStorage, getUrlParam, setToLocalStorage, showWishlistProductsCount, addToWishlistLocalStorage, removeFromWishlistLocalStorage } from "./utils.js"
+import { showCartProductsCount, showProductInShoppingCartSidebar, showShoppingCartSidebar } from "./shared.js"
+import { getLocalStorage, getUrlParam, showWishlistProductsCount, addToWishlistLocalStorage, removeFromWishlistLocalStorage, addToCartLocalStorage } from "./utils.js"
 
 const productCategrotyPath = document.getElementById('product-categroty-path')
 const productOtherImgsWrapper = document.getElementById('product-other-imgs-wrapper')
@@ -189,6 +190,17 @@ const removeFromWishlist = () => {
     showWishlistProductsCount()
 }
 
+const addToCart = () => {
+    const productCount = document.getElementById('product-count')
+
+    addToCartLocalStorage(Number(productId), globalProductInfo, Number(productCount.innerHTML))
+
+    productCount.innerHTML = 1
+    showProductInShoppingCartSidebar()
+    showShoppingCartSidebar()
+    showCartProductsCount()
+}
+
 export {
-    showProductAllDetails, showWishlistBtn, changeProductMainImg, addToWishlist, removeFromWishlist
+    showProductAllDetails, showWishlistBtn, changeProductMainImg, addToWishlist, removeFromWishlist, addToCart
 }

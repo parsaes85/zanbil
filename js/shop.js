@@ -1,4 +1,5 @@
-import { showAllProducts, showSearchedProducts, showCategoryProducts, showCategoryFilters, filterProductsByCategory, filterProductsByPrice, showFiltersSidebar, closeFiltersSidebar, addToWishlist, removeFromWishlist } from "./funcs/shop.js";
+import { showShoppingCartSidebar } from "./funcs/shared.js";
+import { showAllProducts, showSearchedProducts, showCategoryProducts, showCategoryFilters, filterProductsByCategory, filterProductsByPrice, showFiltersSidebar, closeFiltersSidebar, addToWishlist, removeFromWishlist, addToCart } from "./funcs/shop.js";
 import { getUrlParam } from "./funcs/utils.js"
 
 
@@ -12,6 +13,8 @@ const closeFiltersSidebarBtn = document.getElementById('close-filters-sidebar-bt
 
 window.addToWishlist = addToWishlist
 window.removeFromWishlist = removeFromWishlist
+window.addToCart = addToCart
+window.showShoppingCartSidebar = showShoppingCartSidebar
 
 const searchedValue = getUrlParam('searchedValue')
 const categoryCode = getUrlParam('categoryCode')

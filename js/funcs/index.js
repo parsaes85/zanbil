@@ -1,11 +1,15 @@
-import { getLocalStorage, getUrlParam, setToLocalStorage, showWishlistProductsCount, addToWishlistLocalStorage, removeFromWishlistLocalStorage } from "./utils.js"
+import { showCartProductsCount, showProductInShoppingCartSidebar, showShoppingCartSidebar } from "./shared.js"
+import { getLocalStorage, getUrlParam, setToLocalStorage, showWishlistProductsCount, addToWishlistLocalStorage, removeFromWishlistLocalStorage, addToCartLocalStorage } from "./utils.js"
+
 
 const mainUrl = "https://leverapi.f4rd1n.ir/api/digikala"
 
 let wishlistArray = []
+let cartProductsArray = []
 
 const insertProductHtmlBox = (array, parentElem) => {
     wishlistArray = getLocalStorage('zanbil-wishlist')
+    cartProductsArray = getLocalStorage('zanbil-cart')
     parentElem.innerHTML = ''
     
     array.forEach(product => {
@@ -48,9 +52,17 @@ const insertProductHtmlBox = (array, parentElem) => {
             }
             </div>
             <div class="relative product-side-icon">
-                <i class="fa-solid fa-cart-shopping text-sm md:text-lg cursor-pointer text-gray-800 hover:text-gray-500"></i>
+                ${
+                    cartProductsArray.some(cartProduct => cartProduct.id === product.id) ? `
+                    <i onclick='showShoppingCartSidebar()' class="fa-solid fa-check text-sm md:text-lg cursor-pointer text-gray-800 hover:text-gray-500"></i>
 
-                <p class="absolute -top-2 -right-32 bg-black text-white text-xs p-2 rounded-sm invisible opacity-0 transition-all">افزودن به سبد خرید</p>
+                    <p class="absolute -top-2 -right-36 bg-black text-white text-xs p-2 rounded-sm invisible opacity-0 transition-all">به سبد خرید افزوده شده</p>
+                    ` : `
+                    <i onclick='addToCart(${JSON.stringify(product)}, this)' class="fa-solid fa-cart-shopping text-sm md:text-lg cursor-pointer text-gray-800 hover:text-gray-500"></i>
+
+                    <p class="absolute -top-2 -right-32 bg-black text-white text-xs p-2 rounded-sm invisible opacity-0 transition-all">افزودن به سبد خرید</p>
+                    `
+                }
             </div>
         </div>
     </div>
@@ -102,6 +114,19 @@ const removeFromWishlist = (productInfo, elem) => {
     }
 }
 
+const addToCart = (productInfo, elem) => {
+    addToCartLocalStorage(productInfo.id, productInfo, 1)
+    showProductInShoppingCartSidebar()
+    showShoppingCartSidebar()
+    showCartProductsCount()
+
+    if(elem.closest(".swiper-wrapper").id == "incredible-products-wrapper") {
+        showIncredibleProducts()
+    } else if (elem.closest(".swiper-wrapper").id == "bestselling-products-wrapper") {
+        showBestSellingProducts()
+    }
+}
+
 export {
-    showIncredibleProducts, showBestSellingProducts, removeFromWishlist, addToWishlist
+    showIncredibleProducts, showBestSellingProducts, removeFromWishlist, addToWishlist, addToCart
 }

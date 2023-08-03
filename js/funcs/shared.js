@@ -1,4 +1,9 @@
+import { getLocalStorage } from "./utils.js"
+
 const mainUrl = "https://leverapi.f4rd1n.ir/api/digikala"
+
+let wishlistArray = []
+let cartProductsArray = []
 
 const showSidebar = () => {
     const sidebarElem = document.getElementById('sidebar-parent')
@@ -87,6 +92,61 @@ const showHeaderCategories = async () => {
     })
 }
 
+const showProductInShoppingCartSidebar = () => {
+    const shoppingCartProductContainer = document.getElementById('shopping-cart-product-container')
+    cartProductsArray = getLocalStorage('zanbil-cart')
+
+    cartProductsArray.forEach(product => {
+        shoppingCartProductContainer.insertAdjacentHTML('beforeend', `
+        <div class="flex items-center gap-2 p-4 transition hover:bg-gray-100">
+            <a href="product.html?id=${product.id}">
+                <img class="w-14" src="${product.image}" alt="">
+            </a>
+            <div class="flex flex-col gap-1 text-sm">
+                <a href="product.html?id=${product.id}">${product.title_fa}</a>
+                <div class="flex items-center border-2 rounded-md w-fit text-sm text-gray-500">
+                    <span class="px-1.5 py-1 border-l-2 transition duration-200 rounded-r-md cursor-pointer hover:bg-darkRed hover:text-white">-</span>
+                    <p class="px-2 py-1">${product.count}</p>
+                    <span class="px-1.5 py-1 border-r-2 transition duration-200 rounded-l-md cursor-pointer hover:bg-darkRed hover:text-white">+</span>
+                </div>
+                <div>
+                    <span class="text-gray-400">${product.count} <i class="fa fa-xmark"></i> </span>
+                    <span class="text-darkRed font-semibold">${Number(product.price.current_price.toString().slice(0, -1)).toLocaleString()} تومان</span>
+                </div>
+            </div>
+            <i class="fa fa-xmark self-start mr-auto text-sm"></i>
+        </div>  
+        `)
+    })
+}
+
+const showCartProductsCount = () => {
+    const cartProductCountElems = document.querySelectorAll(".cart-product-count")
+
+    cartProductsArray = getLocalStorage('zanbil-cart')
+
+    cartProductCountElems.forEach(elem => {
+        elem.innerHTML = cartProductsArray.length
+    })
+
+    sumCartTotalPrice()
+}
+
+const sumCartTotalPrice = () => {
+    const cartTotalPriceElems = document.querySelectorAll('.cart-total-price')
+    let totalPrice = 0
+
+    cartProductsArray = getLocalStorage('zanbil-cart')
+
+    cartProductsArray.forEach(product => {
+        totalPrice += (product.price.current_price / 10) * product.count
+    })
+
+    cartTotalPriceElems.forEach(elem => {
+        elem.innerHTML = `${totalPrice.toLocaleString()} تومان`
+    })
+}
+
 export {
-    showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, desktopSearchProduct, mobileSearchProduct, showHeaderCategories
+    showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, desktopSearchProduct, mobileSearchProduct, showHeaderCategories, showProductInShoppingCartSidebar, showCartProductsCount, sumCartTotalPrice
 }

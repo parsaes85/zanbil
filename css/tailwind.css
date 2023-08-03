@@ -539,6 +539,10 @@ video {
   position: relative;
 }
 
+.sticky {
+  position: sticky;
+}
+
 .-left-0 {
   left: -0px;
 }
@@ -553,6 +557,10 @@ video {
 
 .-right-32 {
   right: -8rem;
+}
+
+.-right-36 {
+  right: -9rem;
 }
 
 .-right-96 {
@@ -960,6 +968,10 @@ video {
 
 .overflow-y-auto {
   overflow-y: auto;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
 }
 
 .scroll-smooth {
