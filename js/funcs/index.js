@@ -1,4 +1,4 @@
-import { showCartProductsCount, showProductInShoppingCartSidebar, showShoppingCartSidebar } from "./shared.js"
+import { showProductInShoppingCartSidebar, showShoppingCartSidebar } from "./shared.js"
 import { getLocalStorage, getUrlParam, setToLocalStorage, showWishlistProductsCount, addToWishlistLocalStorage, removeFromWishlistLocalStorage, addToCartLocalStorage } from "./utils.js"
 
 
@@ -118,7 +118,6 @@ const addToCart = (productInfo, elem) => {
     addToCartLocalStorage(productInfo.id, productInfo, 1)
     showProductInShoppingCartSidebar()
     showShoppingCartSidebar()
-    showCartProductsCount()
 
     if(elem.closest(".swiper-wrapper").id == "incredible-products-wrapper") {
         showIncredibleProducts()

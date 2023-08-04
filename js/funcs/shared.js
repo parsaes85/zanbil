@@ -1,4 +1,4 @@
-import { getLocalStorage } from "./utils.js"
+import { getLocalStorage, removeFromCartLocalStorage, setToLocalStorage } from "./utils.js"
 
 const mainUrl = "https://leverapi.f4rd1n.ir/api/digikala"
 
@@ -94,6 +94,7 @@ const showHeaderCategories = async () => {
 
 const showProductInShoppingCartSidebar = () => {
     const shoppingCartProductContainer = document.getElementById('shopping-cart-product-container')
+    shoppingCartProductContainer.innerHTML = ''
     cartProductsArray = getLocalStorage('zanbil-cart')
 
     cartProductsArray.forEach(product => {
@@ -105,19 +106,27 @@ const showProductInShoppingCartSidebar = () => {
             <div class="flex flex-col gap-1 text-sm">
                 <a href="product.html?id=${product.id}">${product.title_fa}</a>
                 <div class="flex items-center border-2 rounded-md w-fit text-sm text-gray-500">
-                    <span class="px-1.5 py-1 border-l-2 transition duration-200 rounded-r-md cursor-pointer hover:bg-darkRed hover:text-white">-</span>
+                    <span onclick='decreaseCartProductCount(${product.id})' class="px-1.5 py-1 border-l-2 transition duration-200 rounded-r-md cursor-pointer hover:bg-darkRed hover:text-white">-</span>
                     <p class="px-2 py-1">${product.count}</p>
-                    <span class="px-1.5 py-1 border-r-2 transition duration-200 rounded-l-md cursor-pointer hover:bg-darkRed hover:text-white">+</span>
+                    <span onclick='increaseCartProductCount(${product.id})' class="px-1.5 py-1 border-r-2 transition duration-200 rounded-l-md cursor-pointer hover:bg-darkRed hover:text-white">+</span>
                 </div>
                 <div>
                     <span class="text-gray-400">${product.count} <i class="fa fa-xmark"></i> </span>
                     <span class="text-darkRed font-semibold">${Number(product.price.current_price.toString().slice(0, -1)).toLocaleString()} تومان</span>
                 </div>
             </div>
-            <i class="fa fa-xmark self-start mr-auto text-sm"></i>
+            <i onclick='removeProductInShoppingCartSidebar(${product.id})' class="fa fa-xmark self-start mr-auto text-sm cursor-pointer"></i>
         </div>  
         `)
     })
+
+    sumCartTotalPrice()
+    showCartProductsCount()
+}
+
+const removeProductInShoppingCartSidebar = (productId) => {
+    removeFromCartLocalStorage(productId)
+    showProductInShoppingCartSidebar()
 }
 
 const showCartProductsCount = () => {
@@ -127,9 +136,7 @@ const showCartProductsCount = () => {
 
     cartProductCountElems.forEach(elem => {
         elem.innerHTML = cartProductsArray.length
-    })
-
-    sumCartTotalPrice()
+    })    
 }
 
 const sumCartTotalPrice = () => {
@@ -147,6 +154,29 @@ const sumCartTotalPrice = () => {
     })
 }
 
+const increaseCartProductCount = (productId) => {
+    cartProductsArray = getLocalStorage('zanbil-cart')
+
+    let mainCartProductIndex = cartProductsArray.findIndex(product => product.id == productId)
+
+    ++cartProductsArray[mainCartProductIndex].count
+
+    setToLocalStorage('zanbil-cart', cartProductsArray)
+    showProductInShoppingCartSidebar()
+}
+const decreaseCartProductCount = (productId) => {
+    cartProductsArray = getLocalStorage('zanbil-cart')
+
+    let mainCartProductIndex = cartProductsArray.findIndex(product => product.id == productId)
+
+    if(cartProductsArray[mainCartProductIndex].count > 1) {
+        --cartProductsArray[mainCartProductIndex].count
+    }
+
+    setToLocalStorage('zanbil-cart', cartProductsArray)
+    showProductInShoppingCartSidebar()
+}
+
 export {
-    showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, desktopSearchProduct, mobileSearchProduct, showHeaderCategories, showProductInShoppingCartSidebar, showCartProductsCount, sumCartTotalPrice
+    showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, desktopSearchProduct, mobileSearchProduct, showHeaderCategories, showProductInShoppingCartSidebar, removeProductInShoppingCartSidebar, increaseCartProductCount, decreaseCartProductCount
 }

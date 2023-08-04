@@ -1,4 +1,4 @@
-import { showCartProductsCount, showProductInShoppingCartSidebar, showShoppingCartSidebar } from "./shared.js"
+import { showProductInShoppingCartSidebar, showShoppingCartSidebar } from "./shared.js"
 import { getLocalStorage, getUrlParam, showWishlistProductsCount, addToWishlistLocalStorage, removeFromWishlistLocalStorage, addToCartLocalStorage } from "./utils.js"
 
 const productCategrotyPath = document.getElementById('product-categroty-path')
@@ -198,7 +198,6 @@ const addToCart = () => {
     productCount.innerHTML = 1
     showProductInShoppingCartSidebar()
     showShoppingCartSidebar()
-    showCartProductsCount()
 }
 
 export {

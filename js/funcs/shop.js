@@ -1,4 +1,4 @@
-import { showCartProductsCount, showProductInShoppingCartSidebar, showShoppingCartSidebar } from "./shared.js"
+import { showProductInShoppingCartSidebar, showShoppingCartSidebar } from "./shared.js"
 import { getLocalStorage, getUrlParam, showWishlistProductsCount, addToWishlistLocalStorage, removeFromWishlistLocalStorage, addToCartLocalStorage } from "./utils.js"
 
 const productsWrapper = document.getElementById('products-wrapper')
@@ -211,7 +211,6 @@ const addToCart = (productInfo) => {
     addToCartLocalStorage(productInfo.id, productInfo, 1)
     showProductInShoppingCartSidebar()
     showShoppingCartSidebar()
-    showCartProductsCount()
     
     if(categoryCode !== null && searchedValue !== null) {
         filterProductsByCategory(true)
