@@ -152,6 +152,8 @@ const sumCartTotalPrice = () => {
     cartTotalPriceElems.forEach(elem => {
         elem.innerHTML = `${totalPrice.toLocaleString()} تومان`
     })
+
+    return totalPrice
 }
 
 const increaseCartProductCount = (productId) => {
@@ -178,5 +180,5 @@ const decreaseCartProductCount = (productId) => {
 }
 
 export {
-    showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, desktopSearchProduct, mobileSearchProduct, showHeaderCategories, showProductInShoppingCartSidebar, removeProductInShoppingCartSidebar, increaseCartProductCount, decreaseCartProductCount
+    showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, desktopSearchProduct, mobileSearchProduct, showHeaderCategories, showProductInShoppingCartSidebar, removeProductInShoppingCartSidebar, increaseCartProductCount, decreaseCartProductCount, sumCartTotalPrice
 }
