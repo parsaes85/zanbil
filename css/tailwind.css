@@ -740,12 +740,12 @@ video {
   margin-top: 2rem;
 }
 
-.block {
-  display: block;
+.mt-auto {
+  margin-top: auto;
 }
 
-.inline {
-  display: inline;
+.block {
+  display: block;
 }
 
 .flex {

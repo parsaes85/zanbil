@@ -19,8 +19,16 @@ const closeSidebar = () => {
 }
 
 const showShoppingCartSidebar = () => {
-    const shoppingCartSidebarElem = document.getElementById('shopping-cart-sidebar-parent')
+    cartProductsArray = getLocalStorage('zanbil-cart')
 
+    const shoppingCartSidebarElem = document.getElementById('shopping-cart-sidebar-parent')
+    const shoppingCartSidebarFooterElem = document.getElementById('shopping-cart-sidebar-footer')
+
+    if(cartProductsArray.length > 3) {
+        shoppingCartSidebarFooterElem.classList.replace('absolute', 'sticky')
+    } else {
+        shoppingCartSidebarFooterElem.classList.replace('sticky', 'absolute')
+    }
     shoppingCartSidebarElem.classList.remove('-left-[1800px]')
     shoppingCartSidebarElem.classList.add('left-0')
 }
@@ -139,6 +147,7 @@ const showProductInShoppingCartSidebar = () => {
 const removeProductInShoppingCartSidebar = (productId) => {
     removeFromCartLocalStorage(productId)
     showProductInShoppingCartSidebar()
+    showShoppingCartSidebar()
 }
 
 const showCartProductsCount = () => {
