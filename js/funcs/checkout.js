@@ -8,6 +8,10 @@ const showCartProducts = () => {
 
     cartProductsArray = getLocalStorage("zanbil-cart")
 
+    if(!cartProductsArray.length) {
+        location.href = "./cart.html"
+    }
+
     cartProductsArray.forEach(product => {
         cartProductsWrapper.insertAdjacentHTML("beforeend", `
         <div class="flex justify-between border-b py-3">

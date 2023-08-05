@@ -12,21 +12,21 @@
 </head>
 <body class="font-IRANSans bg-gray-50">
 
-    <div id="shopping-cart-sidebar-parent" class="bg-black bg-opacity-70 fixed top-0 -left-[1800px] w-full h-full z-[60] transition-all duration-200">
-        <div id="shopping-cart-sidebar" class="bg-white h-full w-[290px] mr-auto relative overflow-y-scroll">
+    <div id="shopping-cart-sidebar-parent" class="bg-black bg-opacity-70 fixed top-0 -left-[1800px] w-full h-full z-50 transition-all duration-200">
+        <div id="shopping-cart-sidebar" class="bg-white h-full w-[290px] mr-auto overflow-y-auto relative">
             <div>
                 <div class="border-b">
                     <div class="flex justify-between items-center p-4">
                         <h2 class="text-xl font-semibold">سبد خرید</h2>
     
-                        <div id="close-shopping-cart-sidebar-btn" class="flex items-center gap-1">
+                        <div id="close-shopping-cart-sidebar-btn" class="flex items-center gap-1 cursor-pointer">
                             <i class="fa fa-xmark"></i>
                             بستن
                         </div>
                     </div>
                 </div>
 
-                <div>
+                <div id="shopping-cart-container">
                     <div id="shopping-cart-product-container">
  
                     </div>
@@ -54,8 +54,7 @@
                     </div>
                 </div>
 
-
-                <!-- <div class="flex flex-col justify-center items-center gap-5 mt-6">
+                <div id="empty-shopping-cart-container" class="hidden flex-col justify-center items-center gap-5 mt-6">
                     <i class="fa-solid fa-store-slash text-gray-200 text-7xl"></i>
                     <p class="text-sm font-semibold">هیچ محصولی در سبد خرید نیست.</p>
                     <button class="text-white bg-darkRed p-2 rounded-md">                       
@@ -63,7 +62,7 @@
                             بازگشت به فروشگاه
                         </a>
                     </button>
-                </div> -->
+                </div>
             </div>
         </div>
     </div>
@@ -241,7 +240,7 @@
 
     <section class="bg-white px-4 py-12">
         <div>
-            <div class="flex gap-8 flex-col md:flex-row">
+            <div id="cart-container" class="flex gap-8 flex-col md:flex-row">
                 <div class="md:w-4/6">
                     <p class="font-semibold text-sm text-gray-600">مشتری گرامی در صورت پرداخت آنلاین هدیه به شما تعلق میگیرد.</p>
 
@@ -301,7 +300,7 @@
                 </div>
             </div>
 
-            <!-- <div class="flex flex-col justify-start items-center gap-4">
+            <div id="empty-cart-container" class="hidden flex-col justify-start items-center gap-4">
                 <i class="fa-solid fa-store-slash text-gray-200 text-9xl"></i>
                 <h1 class="font-bold text-4xl">سبد خرید شما در حال حاضر خالی است.</h1>
                 <p class="text-gray-500 text-center">قبل از شروع تسویه حساب، باید برخی از محصولات را به سبد خرید خود اضافه کنید.<br>
@@ -311,7 +310,7 @@
                         بازگشت به فروشگاه
                     </a>
                 </button>
-            </div> -->
+            </div>
         </div>
     </section>
     

@@ -124,6 +124,7 @@ const addToCart = (productInfo, elem) => {
     } else if (elem.closest(".swiper-wrapper").id == "bestselling-products-wrapper") {
         showBestSellingProducts()
     }
+
 }
 
 export {
