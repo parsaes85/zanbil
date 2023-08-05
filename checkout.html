@@ -337,13 +337,16 @@
                     <div class="bg-white my-5 p-4">
                         <div class="flex justify-between border-b py-3">
                             <h2 class="font-semibold">محصول</h2>
-                            <p class="text-sm text-gray-400 flex gap-1">خرید پمپ باد فندکی ارزان 
-                                <span class="text-xs flex items-center"><i class="fa fa-xmark"></i>1</span>
-                            </p>
+                            <h2 class="font-semibold">جمع جزء</h2>
                         </div>
+
+                        <div id="cart-products-wrapper">
+
+                        </div>
+
                         <div class="flex justify-between border-b py-3">
                             <h2 class="font-semibold">جمع جزء</h2>
-                            <p class="text-sm text-darkRed font-semibold">1,349,000 تومان</p>
+                            <p class="cart-total-price text-sm text-darkRed font-semibold">1,349,000 تومان</p>
                         </div>
                         <div class="flex justify-between border-b py-3">
                             <h2 class="font-semibold">حمل و نقل</h2>
@@ -351,7 +354,7 @@
                         </div>
                         <div class="flex justify-between py-3">
                             <h2 class="font-semibold text-lg">مجموع</h2>
-                            <p class=" text-xl text-darkRed font-semibold">1,378,000 تومان</p>
+                            <p id="total-price-to-pay" class=" text-xl text-darkRed font-semibold">1,378,000 تومان</p>
                         </div>
                     </div>
 
@@ -485,5 +488,6 @@
     
     <script src="./vendor/FontAwesome5/all.min.js"></script>
     <script src="./js/shared.js" type="module"></script>
+    <script src="./js/checkout.js" type="module"></script>
 </body>
 </html>
