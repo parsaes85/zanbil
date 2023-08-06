@@ -1,13 +1,14 @@
-import { showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, desktopSearchProduct, mobileSearchProduct, showHeaderCategories, showProductInShoppingCartSidebar, removeProductInShoppingCartSidebar, increaseCartProductCount, decreaseCartProductCount} from "./funcs/shared.js";
+import { showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, showHeaderWhenScrollingUp, desktopSearchProduct, mobileSearchProduct, showHeaderCategories, showProductInShoppingCartSidebar, removeProductInShoppingCartSidebar, increaseCartProductCount, decreaseCartProductCount} from "./funcs/shared.js";
 import { showWishlistProductsCount } from "./funcs/utils.js";
 
-const sidebarBtn = document.getElementById('sidebar-btn')
+const sidebarBtns = document.querySelectorAll('.sidebar-btn')
 const shoppingCartSidebarBtns = document.querySelectorAll('.shopping-cart-sidebar-btn')
 const closeShoppingCartSidebarBtn = document.getElementById('close-shopping-cart-sidebar-btn')
 const showSidebarMenusBtn = document.getElementById('show-sidebar-menus-btn')
 const showSidebarCategoriesBtn = document.getElementById('show-sidebar-categories-btn')
-const desktopSearchForm = document.getElementById('search-form')
+const desktopSearchForms = document.querySelectorAll('.search-form')
 const mobileSearchForm = document.getElementById('mobile-search-form')
+const scrollingHeader = document.getElementById('scrolling-header')
 
 window.removeProductInShoppingCartSidebar = removeProductInShoppingCartSidebar
 window.increaseCartProductCount = increaseCartProductCount
@@ -18,8 +19,10 @@ shoppingCartSidebarBtns.forEach(btn => {
         showShoppingCartSidebar()
     })
 })
-sidebarBtn.addEventListener('click', e => {
-    showSidebar()
+sidebarBtns.forEach(btn => {
+    btn.addEventListener('click', e => {
+        showSidebar()
+    })
 })
 closeShoppingCartSidebarBtn.addEventListener('click', e => {
     closeShoppingCartSidebar()
@@ -28,6 +31,9 @@ window.addEventListener('load', () => {
     showHeaderCategories()
     showWishlistProductsCount()
     showProductInShoppingCartSidebar()
+})
+window.addEventListener('scroll', () => {
+    showHeaderWhenScrollingUp(scrollingHeader)
 })
 window.addEventListener('click', e => {
     if(e.target.id === "sidebar-parent") closeSidebar()
@@ -45,10 +51,12 @@ showSidebarCategoriesBtn.addEventListener('click', e => {
 
     showSidebarCategories()
 })
-desktopSearchForm.addEventListener('submit', e => {
-    e.preventDefault()
-    
-    desktopSearchProduct()
+desktopSearchForms.forEach(searchForm => {
+    searchForm.addEventListener('submit', e => {
+        e.preventDefault()
+        
+        desktopSearchProduct(searchForm)
+    })
 })
 mobileSearchForm.addEventListener('submit', e => {
     e.preventDefault()

@@ -20,10 +20,10 @@ const showCartProducts = () => {
             <tr class="border-b">
                 <td class="py-4 text-base flex items-center justify-center gap-4">
                     <i onclick='removeCartProduct(${product.id})' class="fa fa-xmark text-gray-800 cursor-pointer"></i>
-                    <a href="#">
+                    <a href="product.html?id=${product.id}">
                         <img src="${product.image}" class="w-20" alt="">
                     </a>
-                    <a href="#">
+                    <a href="product.html?id=${product.id}">
                         ${product.title_fa}
                     </a>
                 </td>
@@ -45,11 +45,12 @@ const showCartProducts = () => {
     
             mobileCartProductsWrapper.insertAdjacentHTML('beforeend', `
             <div class="flex items-center gap-4 border-b py-6">
-                <img class="w-24" src="${product.image}" alt="">
-    
+                <a href="product.html?id=${product.id}">    
+                    <img class="w-24" src="${product.image}" alt="">
+                </a>
                 <div class="w-full">
                     <div class="flex text-sm justify-between">
-                        <p class="text-gray-900">${product.title_fa}</p>
+                        <a href="product.html?id=${product.id}" class="text-gray-900">${product.title_fa}</a>
                         <i onclick='removeCartProduct(${product.id})' class="fa-solid fa-xmark pr-2"></i>
                     </div>
                     <div class="flex text-sm justify-between border-b border-dashed py-2">

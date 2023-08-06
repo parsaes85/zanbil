@@ -4,6 +4,7 @@ const mainUrl = "https://leverapi.f4rd1n.ir/api/digikala"
 
 let wishlistArray = []
 let cartProductsArray = []
+let lastScrollTop = 0;
 
 const showSidebar = () => {
     const sidebarElem = document.getElementById('sidebar-parent')
@@ -24,7 +25,7 @@ const showShoppingCartSidebar = () => {
     const shoppingCartSidebarElem = document.getElementById('shopping-cart-sidebar-parent')
     const shoppingCartSidebarFooterElem = document.getElementById('shopping-cart-sidebar-footer')
 
-    if(cartProductsArray.length > 3) {
+    if(cartProductsArray.length >= 3) {
         shoppingCartSidebarFooterElem.classList.replace('absolute', 'sticky')
     } else {
         shoppingCartSidebarFooterElem.classList.replace('sticky', 'absolute')
@@ -72,10 +73,23 @@ const showSidebarCategories = async () => {
     })
 }
 
-const desktopSearchProduct = () => {
-    const searchInputElem = document.getElementById('search-input')
+const showHeaderWhenScrollingUp = (header) => {
+    let st = window.pageYOffset || document.documentElement.scrollTop;
 
-    location.href = `./shop.html?searchedValue=${searchInputElem.value}`
+    if (st > lastScrollTop) {
+        header.classList.replace("top-0", "-top-[600px]")
+    } else if (st < lastScrollTop) {
+       header.classList.replace("-top-[600px]", "top-0")
+    }
+    if(st < 235) {
+        header.classList.replace("top-0", "-top-[600px]")
+    }
+    // console.log(st)
+    lastScrollTop = st <= 0 ? 0 : st;
+}
+
+const desktopSearchProduct = (form) => {
+    location.href = `./shop.html?searchedValue=${form.firstElementChild.value}`
 }
 const mobileSearchProduct = () => {
     const searchInputElem = document.getElementById('mobile-search-input')
@@ -84,19 +98,21 @@ const mobileSearchProduct = () => {
 }
 
 const showHeaderCategories = async () => {
-    const headerCategoriesWrapper = document.getElementById('header-categories-wrapper')
+    const headerCategoriesWrappers = document.querySelectorAll('.header-categories-wrapper')
 
     const res = await fetch(`${mainUrl}`)
     const data = await res.json()
 
     const categories = data.results.categories
 
-    categories.forEach(category => {
-        headerCategoriesWrapper.insertAdjacentHTML('beforeend', `
-        <li class="border-b p-2 font-medium text-gray-900 hover:bg-gray-100">
-            <a href="shop.html?categoryCode=${category.code}" class="block w-full">${category.title_fa}</a>
-        </li>
-        `)
+    headerCategoriesWrappers.forEach(wrapper => {
+        categories.forEach(category => {
+            wrapper.insertAdjacentHTML('beforeend', `
+            <li class="border-b p-2 font-medium text-gray-900 hover:bg-gray-100">
+                <a href="shop.html?categoryCode=${category.code}" class="block w-full">${category.title_fa}</a>
+            </li>
+            `)
+        })
     })
 }
 
@@ -201,5 +217,5 @@ const decreaseCartProductCount = (productId) => {
 }
 
 export {
-    showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, desktopSearchProduct, mobileSearchProduct, showHeaderCategories, showProductInShoppingCartSidebar, removeProductInShoppingCartSidebar, increaseCartProductCount, decreaseCartProductCount, sumCartTotalPrice
+    showSidebar, closeSidebar, showShoppingCartSidebar, closeShoppingCartSidebar, showSidebarMenus, showSidebarCategories, showHeaderWhenScrollingUp, desktopSearchProduct, mobileSearchProduct, showHeaderCategories, showProductInShoppingCartSidebar, removeProductInShoppingCartSidebar, increaseCartProductCount, decreaseCartProductCount, sumCartTotalPrice
 }
