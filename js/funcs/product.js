@@ -22,6 +22,7 @@ const mainUrl = "https://leverapi.f4rd1n.ir/api/digikala"
 const productId = getUrlParam('id')
 
 let wishlistArray = []
+let cartProductsArray = []
 let globalProductInfo = null
 
 const changeProductMainImg = (otherProductImages, clickedImg ,imgSrc) => {
@@ -112,50 +113,64 @@ const showProductAllDetails = async () => {
     })
 
     // show product productRecommendations
+    wishlistArray = getLocalStorage('zanbil-wishlist')
+    cartProductsArray = getLocalStorage('zanbil-cart')
+    productRecommendationsWrapper.innerHTML = ''
+
     productRecommendations.forEach(recommendation => {
         productRecommendationsWrapper.insertAdjacentHTML('beforeend', `
         <div class="swiper-slide select-none bg-white rounded-xl relative group">
+        ${
+            recommendation.price.discount_percent ? `
+            <span class="bg-darkRed text-white px-4 py-1 text-xs absolute right-1 top-3 rounded-full">-${recommendation.price.discount_percent}%</span>
+            ` : ""
+        }
+        <a href="product.html?id=${recommendation.id}">
+            <img class="p-2" src="${recommendation.image}" alt="">
+        </a>
+        <div class="p-4">
+            <a href="product.html?id=${recommendation.id}" class="text-xs sm:text-sm md:text-base">${recommendation.title_fa}</a>
+            <div class="flex mt-3 mb-2">
+                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+                <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
+            </div>
             ${
                 recommendation.price.discount_percent ? `
-                <span class="bg-darkRed text-white px-4 py-1 text-xs absolute right-1 top-3 rounded-full">-${recommendation.price.discount_percent}%</span>
+                <p class="text-gray-400 line-through font-medium text-[10px] md:text-xs">${Number(recommendation.price.prev_price.toString().slice(0, -1)).toLocaleString()} هزارتومان</p>
                 ` : ""
             }
-            <div>
-                <a href="product.html?id=${recommendation.id}">
-                    <img class="p-2" src="${recommendation.image}" alt="">
-                </a>
+            <p class="text-darkRed font-medium sm:font-semibold text-xs md:text-sm">${Number(recommendation.price.current_price.toString().slice(0, -1)).toLocaleString()} هزارتومان</p>
+        </div>
+        <div class="absolute left-2 md:-left-0 top-4 bg-white rounded-lg flex flex-col gap-4 shadow px-3 py-2 transition-all duration-200 md:invisible md:opacity-0 group-hover:opacity-100 group-hover:visible group-hover:left-2">
+            <div class="relative product-side-icon">
+            ${
+                wishlistArray.some(wishlist => wishlist.id === recommendation.id ) ? `
+                <i onclick='removeRecommendationToWishlist(${JSON.stringify(recommendation)})' class="fa fa-heart text-red-600 md:text-xl cursor-pointer hover:text-red-700"></i>
+                <p class="absolute -top-2 -right-32 bg-black text-white text-xs p-2 rounded-sm invisible opacity-0 transition-all">حذف از علاقه مندی</p>
+                ` : `
+                <i onclick='addRecommendationToWishlist(${JSON.stringify(recommendation)})' class="fa-regular fa-heart md:text-xl cursor-pointer text-gray-800 hover:text-gray-500"></i>
+                <p class="absolute -top-2 -right-32 bg-black text-white text-xs p-2 rounded-sm invisible opacity-0 transition-all">افزودن به علاقه مندی</p>
+                `
+            }
             </div>
-            <div class="p-4">
-                <a href="product.html?id=${recommendation.id}" class="text-xs sm:text-sm md:text-base">
-                    ${recommendation.title_fa}
-                </a>
-                <div class="flex mt-3 mb-2">
-                    <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                    <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                    <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                    <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                    <i class="fa-solid fa-star text-yellow-400 text-xs"></i>
-                </div>
+            <div class="relative product-side-icon">
                 ${
-                    recommendation.price.discount_percent ? `
-                    <p class="text-gray-400 line-through font-medium text-[10px] md:text-xs">${Number(recommendation.price.prev_price.toString().slice(0, -1)).toLocaleString()} هزارتومان</p>
-                    ` : ""
-                }
-                <p class="text-darkRed font-medium sm:font-semibold text-xs md:text-sm">${Number(recommendation.price.current_price.toString().slice(0, -1)).toLocaleString()} هزارتومان</p>
-            </div>
-            <div class="absolute -left-0 top-4 bg-white flex flex-col gap-4 shadow px-3 py-2 transition-all duration-200 invisible opacity-0 group-hover:opacity-100 group-hover:visible group-hover:left-2">
-                <div class="relative product-side-icon">
-                    <i class="fa-regular fa-heart text-xl cursor-pointer text-gray-800 hover:text-gray-500"></i>
+                    cartProductsArray.some(cartProduct => cartProduct.id === recommendation.id) ? `
+                    <i onclick='showShoppingCartSidebar()' class="fa-solid fa-check text-sm md:text-lg cursor-pointer text-gray-800 hover:text-gray-500"></i>
 
-                    <p class="absolute -top-2 -right-32 bg-black text-white text-xs p-2 rounded-sm invisible opacity-0 transition-all">افزودن به علاقه مندی</p>
-                </div>
-                <div class="relative product-side-icon">
-                    <i class="fa-solid fa-cart-shopping text-lg cursor-pointer text-gray-800 hover:text-gray-500"></i>
+                    <p class="absolute -top-2 -right-36 bg-black text-white text-xs p-2 rounded-sm invisible opacity-0 transition-all">به سبد خرید افزوده شده</p>
+                    ` : `
+                    <i onclick='addRecommendationToCart(${JSON.stringify(recommendation)}, this)' class="fa-solid fa-cart-shopping text-sm md:text-lg cursor-pointer text-gray-800 hover:text-gray-500"></i>
 
                     <p class="absolute -top-2 -right-32 bg-black text-white text-xs p-2 rounded-sm invisible opacity-0 transition-all">افزودن به سبد خرید</p>
-                </div>
+                    `
+                }
             </div>
         </div>
+    </div>
         `)
     })
 }
@@ -200,6 +215,21 @@ const addToCart = () => {
     showShoppingCartSidebar()
 }
 
+const addRecommendationToWishlist = (productInfo) => {
+    addToWishlistLocalStorage(productInfo.id, productInfo)
+    showWishlistProductsCount()
+}
+const removeRecommendationToWishlist = (productInfo) => {
+    removeFromWishlistLocalStorage(productInfo.id)
+    showWishlistProductsCount()
+}
+
+const addRecommendationToCart = (productInfo) => {
+    addToCartLocalStorage(productInfo.id, productInfo, 1)
+    showProductInShoppingCartSidebar()
+    showShoppingCartSidebar()
+}
+
 export {
-    showProductAllDetails, showWishlistBtn, changeProductMainImg, addToWishlist, removeFromWishlist, addToCart
+    showProductAllDetails, showWishlistBtn, changeProductMainImg, addToWishlist, removeFromWishlist, addToCart, addRecommendationToWishlist, removeRecommendationToWishlist, addRecommendationToCart
 }
