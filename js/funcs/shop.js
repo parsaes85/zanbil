@@ -37,10 +37,10 @@ const insertProductHtmlBox = (array, emptyContainer) => {
                 <div class="mt-4">
                     ${
                         product.price.discount_percent ? `
-                        <p class="text-gray-400 line-through font-medium text-[10px] md:text-xs">${Number(product.price.prev_price.toString().slice(0, -1)).toLocaleString()} هزارتومان</p>
+                        <p class="text-gray-400 line-through font-medium text-[10px] md:text-xs">${(product.price.prev_price / 10).toLocaleString()} هزارتومان</p>
                         ` : ""
                     }
-                    <p class="text-darkRed font-semibold">${Number(product.price.current_price.toString().slice(0, -1)).toLocaleString()} تومان</p>
+                    <p class="text-darkRed font-semibold">${(product.price.current_price / 10).toLocaleString()} تومان</p>
                 </div>
             </div>
 

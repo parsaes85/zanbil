@@ -68,8 +68,8 @@ const showProductAllDetails = async () => {
     productCategoryTitle.innerHTML = productCategoryDetails.categoryLevel1
     productCode.innerHTML = productDetails.category.code
     productDiscountPercent.innerHTML = productDetails.price.discount_percent ? `-${productDetails.price.discount_percent}%` : productDiscountPercent.classList.add('hidden')
-    productPrevPrice.innerHTML = productDetails.price.discount_percent ? `${Number(productDetails.price.prev_price.toString().slice(0, -1)).toLocaleString()} تومان` : ""
-    productCurrentPrice.innerHTML = `${Number(productDetails.price.current_price.toString().slice(0, -1)).toLocaleString()} تومان`
+    productPrevPrice.innerHTML = productDetails.price.discount_percent ? `${(productDetails.price.prev_price / 10).toLocaleString()} تومان` : ""
+    productCurrentPrice.innerHTML = `${(productDetails.price.current_price / 10).toLocaleString()} تومان`
     productWatchingCount.innerHTML = productDetails.images.length
     productDescription.innerHTML = productDetails.introduce
     productCommentsTitle.innerHTML = `${productDetails.last_comments.length} دیدگاه برای ${productDetails.mainDetails.title}`
@@ -139,10 +139,10 @@ const showProductAllDetails = async () => {
             </div>
             ${
                 recommendation.price.discount_percent ? `
-                <p class="text-gray-400 line-through font-medium text-[10px] md:text-xs">${Number(recommendation.price.prev_price.toString().slice(0, -1)).toLocaleString()} هزارتومان</p>
+                <p class="text-gray-400 line-through font-medium text-[10px] md:text-xs">${(recommendation.price.prev_price / 10).toLocaleString()} هزارتومان</p>
                 ` : ""
             }
-            <p class="text-darkRed font-medium sm:font-semibold text-xs md:text-sm">${Number(recommendation.price.current_price.toString().slice(0, -1)).toLocaleString()} هزارتومان</p>
+            <p class="text-darkRed font-medium sm:font-semibold text-xs md:text-sm">${(recommendation.price.current_price / 10).toLocaleString()} هزارتومان</p>
         </div>
         <div class="absolute left-2 md:-left-0 top-4 bg-white rounded-lg flex flex-col gap-4 shadow px-3 py-2 transition-all duration-200 md:invisible md:opacity-0 group-hover:opacity-100 group-hover:visible group-hover:left-2">
             <div class="relative product-side-icon">
