@@ -6,6 +6,12 @@ let wishlistArray = []
 let cartProductsArray = []
 let lastScrollTop = 0;
 
+const hideLoader = () => {
+    const loader = document.getElementById('loader-parent')
+
+    loader.classList.replace('flex', 'hidden')
+}
+
 const showSidebar = () => {
     const sidebarElem = document.getElementById('sidebar-parent')
 
@@ -114,6 +120,7 @@ const showHeaderCategories = async () => {
             `)
         })
     })
+    hideLoader()
 }
 
 const showProductInShoppingCartSidebar = () => {
